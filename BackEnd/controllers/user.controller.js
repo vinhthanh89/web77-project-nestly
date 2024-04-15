@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 
 
 import Users from "../models/users.model.js"
@@ -49,6 +50,57 @@ export const signUp = async (req , res) => {
     } catch (error) {
         console.log(error);
         cloudinary.uploader.destroy(avatar.filename)
+        return res.status(500).json({
+            message : error.message
+        })
+    }
+}
+
+export const login = async (req , res) => {
+    try {
+        const {email , password} = req.body
+
+        const findUser = await Users.findOne({email})
+        if(!findUser){
+            return res.status(403).json({
+                message : "Email người dùng không tồn tại"
+            })
+        }
+
+        const checkPassword = bcrypt.compareSync(password , findUser.password)
+        if(!checkPassword){
+            return res.status(403).json({
+                message : "Mật khẩu không chính xác"
+            })
+        }
+
+        const accessToken = jwt.sign({
+            id : findUser._id,
+            email : findUser.email,
+            role : findUser.role,
+        }, process.env.ACCESSTOKEN_SCRET_KEY , {
+            expiresIn : "1d"
+        })
+
+        const returnUser = {
+            id : findUser._id ,
+            username : findUser.username ,
+            email : findUser.email ,
+            role : findUser.role ,
+            phone : findUser.phone
+        }
+
+        return res.status(200).json({
+            message : "Đăng nhập thành công",
+            returnUser,
+            accessToken : {
+                token : accessToken ,
+                saveToken : setTokenLocalStorage(accessToken)
+            }
+        })
+
+    } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message : error.message
         })
