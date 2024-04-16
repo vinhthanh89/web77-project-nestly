@@ -26,8 +26,9 @@ const passwordValidate = joi.string().required().min(8).max(30).messages({
     "any.required" : "Password là bắt buộc" ,
 })
 
-const phoneValidate = joi.string().required().messages({
+const phoneValidate = joi.string().length(10).required().messages({
     "string.base" : "Phone phải là dạng dữ liệu string",
+    "string.length" : "Số điện thoại phải đủ 10 chữ số",
     "any.required" : "Phone là bắt buộc",
 })
 
@@ -36,4 +37,14 @@ export const signUpValidate = joi.object({
     email : emailValidate,
     password : passwordValidate,
     phone : phoneValidate,
+})
+
+export const editUserValidate = joi.object({
+    username : usernameValidate,
+    email : emailValidate,
+    phone : phoneValidate,
+})
+
+export const changePasswordValidate = joi.object({
+    password : passwordValidate,
 })
