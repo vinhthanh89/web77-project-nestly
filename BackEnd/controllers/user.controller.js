@@ -1,12 +1,11 @@
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-
-
 import Users from "../models/users.model.js"
 import { signUpValidate } from "../validations/user.validate.js";
 import { validateData } from "../validations/validates.js";
 import cloudinary from "../configs/cloudinary.js";
 
+//! Sign up
 export const signUp = async (req , res) => {
     try {
         const {username , email , password , phone} = req.body;
@@ -56,6 +55,7 @@ export const signUp = async (req , res) => {
     }
 }
 
+//! Login
 export const login = async (req , res) => {
     try {
         const {email , password} = req.body
