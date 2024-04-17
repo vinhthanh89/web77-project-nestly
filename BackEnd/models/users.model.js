@@ -15,7 +15,6 @@ const Users = new mongoose.Schema({
     },
     avatar : {
         type : String ,
-        required : true
     },
     phone : {
         type : String ,
