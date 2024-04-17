@@ -1,4 +1,6 @@
+
 import bcrypt from "bcryptjs";
+
 
 import cloudinary from "../configs/cloudinary.js";
 import Users from "../models/users.model.js";
@@ -6,6 +8,8 @@ import { changePasswordValidate, editUserValidate, signUpValidate } from "../val
 import { validateData } from "../validations/validates.js";
 import { signAccessToken } from "../utils/jwtoken.js";
 
+
+//! Sign up
 export const signUp = async (req, res) => {
   try {
     const { username, email, password, phone } = req.body;
@@ -62,6 +66,7 @@ export const signUp = async (req, res) => {
   }
 };
 
+//! Login
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -192,6 +197,8 @@ export const editUser = async (req , res) => {
         })
     }
 }
+
+
 
 export const changeUserPassword = async (req , res) => {
     try {
