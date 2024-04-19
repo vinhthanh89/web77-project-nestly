@@ -42,7 +42,7 @@ export const signUp = async (req, res) => {
       username,
       email,
       password: hashPassword,
-      avatar: avatar.path,
+      avatar: (avatar?.path || ''),
       phone,
     });
 
@@ -52,7 +52,7 @@ export const signUp = async (req, res) => {
         username,
         email,
         phone,
-        avatar: avatar.path,
+        avatar: (avatar?.path || ''),
       },
     });
   } catch (error) {
@@ -132,14 +132,12 @@ export const getPagingUser = async (req, res) => {
   try {
     const { pageSize, pageIndex } = req.query;
 
-    const [user, totalDocument] = await Promise.all(
-      await Users.find()
-        .skip(pageSize * (pageIndex - 1))
-        .limit(pageSize),
-      await Users.countDocuments()
-    );
+    const [user, totalDocument] = await Promise.all([
+      Users.find().skip(pageSize * (pageIndex - 1)).limit(pageSize),
+      Users.countDocuments()
+    ]);
 
-    const totalPage = Math.cecil(totalDocument / pageSize);
+    const totalPage = Math.ceil(totalDocument / pageSize)
 
     return res.status(200).json({
       message: "Lấy dữ liệu người dùng thành công",
@@ -166,11 +164,13 @@ export const editUser = async (req , res) => {
             })
         }
 
-        const checkEmailExits = await Users.findOne({email})
-        if(checkEmailExits){
-            return res.status(401).json({
-                message : "Email người dùng đã tồn tại"
-            })
+        if(email !== findUser.email){
+          const checkEmailExits = await Users.findOne({email})
+          if(checkEmailExits){
+              return res.status(401).json({
+                  message : "Email người dùng đã tồn tại"
+              })
+          }
         }
 
         const validate = validateData({username , email , phone}, editUserValidate)
@@ -197,8 +197,6 @@ export const editUser = async (req , res) => {
         })
     }
 }
-
-
 
 export const changeUserPassword = async (req , res) => {
     try {

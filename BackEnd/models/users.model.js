@@ -24,6 +24,8 @@ const Users = new mongoose.Schema({
         type : String ,
         default : "member",
     }
+} , {
+    timestamps : true
 })
 
 export default mongoose.model("users" , Users)

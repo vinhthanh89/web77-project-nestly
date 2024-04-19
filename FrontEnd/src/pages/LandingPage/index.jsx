@@ -6,6 +6,7 @@ import "./index.css";
 const LandingPage = () => {
   return (
     <>
+
       <div className="landing-page w-full h-screen">
         <Header />
         <div className="container">
