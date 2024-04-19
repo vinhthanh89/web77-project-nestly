@@ -1,0 +1,18 @@
+.header {
+    font-family: "Quicksand", sans-serif;
+    border-radius: 20px;
+    box-shadow: 6px 6px 10px rgba(0.3, 0.3, 0.1, 0.4);
+    background: transparent;
+}
+.item {
+    margin: 20px;
+    margin-top: 30px;
+}
+button {
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+}
+
+button:hover {
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.4);
+}
