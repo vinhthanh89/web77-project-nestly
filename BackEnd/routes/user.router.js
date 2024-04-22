@@ -7,6 +7,7 @@ import { authentication } from "../middlewares/authentication.js";
 const router = Router();
 
 
+
 router.post("/sign-up" , upload.single('avatar') , signUp);
 router.post("/login" , login)
 router.get('/get-user' , authentication , getUser);
@@ -17,4 +18,5 @@ router.delete('/delete/:id' , authentication , deleteUser)
 router.get('/find-user' , findUser)
 
 
-export default router
+
+export default router;

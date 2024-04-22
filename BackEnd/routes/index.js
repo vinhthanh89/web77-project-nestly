@@ -7,6 +7,7 @@ import { refreshAccessToken } from "../middlewares/authentication.js"
 
 const router = Router()
 
+// router.use("/user" , userRouter)
 router.use("/user" , userRouter)
 router.use('/room' , roomRouter)
 router.post('/refresh-access-token', refreshAccessToken)
