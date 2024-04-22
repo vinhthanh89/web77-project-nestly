@@ -1,9 +1,9 @@
 .login {
-    background-color: #f1f1f1;
     background-image: url("https://plus.unsplash.com/premium_photo-1680281937008-f9b19ed9afb6?q=80&w=1913&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
 }
 .login-holder {
+    background-color: white;
     font-family: "Quicksand", sans-serif;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -13,6 +13,7 @@ input {
     width: 95%;
     font-size: 22px;
     border-bottom: 1px solid black;
+    background: transparent;
 }
 
 input:focus {
@@ -20,17 +21,16 @@ input:focus {
 }
 
 input::placeholder {
-    font-size: 18px;
-    font-weight: 400;
+    font-size: 16px;
+    font-weight: 500;
     color: black;
 }
 
-button {
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    transition: box-shadow 0.3s ease;
+.btn span {
+    background: transparent;
 }
 
-button:hover {
+.btn:hover {
+    border: none;
     box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.4);
 }

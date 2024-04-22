@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 const NonAuthLayout = () => {
   return (
     <>
-      <Outlet />
+      <Outlet/>
     </>
   );
 };

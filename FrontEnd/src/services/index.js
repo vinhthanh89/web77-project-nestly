@@ -31,7 +31,7 @@ axiosInstanceAuth.interceptors.response.use(
     if (error.response.status == 401) {
       removeTokenFromLocalStorage();
       removeUserFromLocalStorage();
-      window.location.href = "/login";
+      window.location.href = "/";
     }
   }
 );
