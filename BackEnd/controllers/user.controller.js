@@ -3,10 +3,10 @@ import bcrypt from "bcryptjs";
 
 
 import cloudinary from "../configs/cloudinary.js";
-import Users from "../models/users.model.js";
+import User from "../models/user.model.js";
 import { changePasswordValidate, editUserValidate, signUpValidate } from "../validations/user.validate.js";
 import { validateData } from "../validations/validates.js";
-import { signAccessToken } from "../utils/jwtoken.js";
+import { signAccessToken, signRefreshToken } from "../utils/jwtoken.js";
 
 
 //! Sign up
@@ -26,7 +26,7 @@ export const signUp = async (req, res) => {
       });
     }
 
-    const findUser = await Users.findOne({ email });
+    const findUser = await User.findOne({ email });
     if (findUser) {
       if (avatar) {
         cloudinary.uploader.destroy(avatar.filename);
@@ -38,7 +38,7 @@ export const signUp = async (req, res) => {
 
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync());
 
-    await Users.create({
+    await User.create({
       username,
       email,
       password: hashPassword,
@@ -71,7 +71,7 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const findUser = await Users.findOne({ email });
+    const findUser = await User.findOne({ email });
     if (!findUser) {
       return res.status(403).json({
         message: "Email người dùng không tồn tại",
@@ -85,11 +85,14 @@ export const login = async (req, res) => {
       });
     }
 
-    const accessToken = signAccessToken({
-      id: findUser._id,
+    const payload = {
+      _id: findUser._id,
       email: findUser.email,
       role: findUser.role,
-    });
+    }
+
+    const accessToken = signAccessToken(payload);
+    const refreshToken = signRefreshToken(payload);
 
     const returnUser = {
       id: findUser._id,
@@ -103,6 +106,7 @@ export const login = async (req, res) => {
       message: "Đăng nhập thành công",
       returnUser,
       accessToken,
+      refreshToken
     });
   } catch (error) {
     console.log(error);
@@ -114,7 +118,7 @@ export const login = async (req, res) => {
 
 export const getUser = async (req, res) => {
   try {
-    const user = await Users.find();
+    const user = await User.find();
 
     return res.status(200).json({
       message: "Lấy dữ liệu user thành công",
@@ -133,8 +137,8 @@ export const getPagingUser = async (req, res) => {
     const { pageSize, pageIndex } = req.query;
 
     const [user, totalDocument] = await Promise.all([
-      Users.find().skip(pageSize * (pageIndex - 1)).limit(pageSize),
-      Users.countDocuments()
+      User.find().skip(pageSize * (pageIndex - 1)).limit(pageSize).sort({createAt : -1}),
+      User.countDocuments()
     ]);
 
     const totalPage = Math.ceil(totalDocument / pageSize)
@@ -157,7 +161,7 @@ export const editUser = async (req , res) => {
         const userId = req.params.id
         const {username , email , phone} = req.body
 
-        const findUser = await Users.findById(userId)
+        const findUser = await User.findById(userId)
         if(!findUser){
             return res.status(404).json({
                 message : "Không tìm thấy ID người dùng"
@@ -165,7 +169,7 @@ export const editUser = async (req , res) => {
         }
 
         if(email !== findUser.email){
-          const checkEmailExits = await Users.findOne({email})
+          const checkEmailExits = await User.findOne({email})
           if(checkEmailExits){
               return res.status(401).json({
                   message : "Email người dùng đã tồn tại"
@@ -180,7 +184,7 @@ export const editUser = async (req , res) => {
             })
         }
 
-        const userUpdated = await Users.findByIdAndUpdate(findUser._id , {
+        const userUpdated = await User.findByIdAndUpdate(findUser._id , {
             username ,
             email ,
             phone,
@@ -203,7 +207,7 @@ export const changeUserPassword = async (req , res) => {
         const userId = req.params.id
         const {oldPassword , newPassword , confirmNewPassword} = req.body
 
-        const findUser = await Users.findById(userId)
+        const findUser = await User.findById(userId)
         if(!findUser){
             return res.status(404).json({
                 message : "Không tìm thấy ID người dùng"
@@ -232,7 +236,7 @@ export const changeUserPassword = async (req , res) => {
 
         const hashNewPassword = bcrypt.hashSync(newPassword , bcrypt.genSaltSync())
 
-        await Users.findByIdAndUpdate(findUser._id , {
+        await User.findByIdAndUpdate(findUser._id , {
             password :hashNewPassword
         } , {new : true})
 
@@ -253,14 +257,14 @@ export const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
 
-    const findUser = await Users.findById(userId);
+    const findUser = await User.findById(userId);
     if (!findUser) {
       return res.status(404).json({
         message: "không tìm thấy ID người dùng",
       });
     }
 
-    await Users.findByIdAndDelete(userId);
+    await User.findByIdAndDelete(userId);
 
     return res.status(200).json({
       message: "Xóa người dùng thành công",
@@ -272,3 +276,27 @@ export const deleteUser = async (req, res) => {
     });
   }
 };
+
+export const findUser = async (req , res) => {
+  try {
+    const email = req.query.email
+
+    const findUser = await Room.findOne({email})
+    if(!findUser){
+      return res.status(404).json({
+        message : "Email người dùng không tồn tại"
+      })
+    }
+
+    return res.status(200).json({
+      message : "Tìm thấy email người dùng thành công",
+      findUser
+    })
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message : error
+    })
+  }
+}
