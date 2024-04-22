@@ -1,15 +1,14 @@
-const CardDetails = () => {
+import React from 'react';
+
+function CardDetails({ selectedCard, closeCardDetails }) {
   return (
-    <>
-      <div>
-        <div className="image-holder">
-          <img src="" alt="" />
-              </div>
-              {/* Handle card details */}
-        <h1>Hotel name, location: HCM, price.....</h1>
-        <p>Description</p>
-      </div>
-    </>
+    <div>
+      <h2>Selected Card</h2>
+      <h3>{selectedCard.name}</h3>
+      <p>{selectedCard.description}</p>
+      <button onClick={closeCardDetails}>Close</button>
+    </div>
   );
-};
+}
+
 export default CardDetails;

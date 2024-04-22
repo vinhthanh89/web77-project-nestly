@@ -9,6 +9,7 @@ import LandingPage from "./pages/LandingPage/index.jsx";
 import Home from "./pages/Home/index.jsx";
 import SignUp from "./pages/SignUp/index.jsx";
 import Login from "./pages/Login";
+import TodoCard from "./pages/TodoCard";
 function App() {
   // const user = userSelector((state) => state.users.user);
   // return (
@@ -27,10 +28,13 @@ function App() {
   //     </Routes>
   //   </>
   // );
+
+
   return (
     <>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/todo-card" element={<TodoCard />} />
         <Route path="/home" element={<Home />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
