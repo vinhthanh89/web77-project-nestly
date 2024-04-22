@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 
 export const signAccessToken = (payload) => {
     const accessToken = jwt.sign({
-        payload
+        payload,
     } , process.env.ACCESSTOKEN_SCRET_KEY , {
         expiresIn : '1d'
     })
@@ -12,14 +12,14 @@ export const signAccessToken = (payload) => {
 
 export const signRefreshToken = (payload) => {
     const refreshToken = jwt.sign({
-        payload
+        payload,
     } , process.env.ACCESSTOKEN_SCRET_KEY)
 
     return refreshToken
 }
 
-export const verifyToken = (token) => {
-    const verify = jwt.verify(token , process.env.ACCESSTOKEN_SCRET_KEY)
+export const verifyToken = (token , SCRET_KEY) => {
+    const verify = jwt.verify(token ,  SCRET_KEY)
 
     if(verify){
         return verify
