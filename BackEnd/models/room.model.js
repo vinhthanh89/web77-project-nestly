@@ -43,4 +43,4 @@ const Room = new mongoose.Schema({
     timestamps : true
 })
 
-export default mongoose.model('posts' , Posts)
+export default mongoose.model('rooms' , Room)
