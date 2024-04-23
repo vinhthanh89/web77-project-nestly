@@ -25,7 +25,8 @@ const Login = () => {
     try {
       setLoading(true);
       const result = await login(values);
-      saveUserToLocalStorage(result.data.user);
+      saveUserToLocalStorage(result.data.returnUser);
+      saveTokenToLocalStorage(result.data.accessToken)
       toast.success("Login successfully!");
       navigate("/home")
     } catch (error) {

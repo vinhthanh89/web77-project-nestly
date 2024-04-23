@@ -4,7 +4,6 @@ const AuthLayout = () => {
   //todo Tùy biến, design trong đây
   return (
     <>
-      <div>Hello authentication</div>
       <Outlet />
     </>
   );
