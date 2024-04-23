@@ -1,4 +1,10 @@
+import CardDetails from "../CardDetails";
+
 const Card = () => {
-  return <></>;
+  return <>
+    <div>
+      <CardDetails/>
+  </div>
+  </>;
 };
 export default Card;
