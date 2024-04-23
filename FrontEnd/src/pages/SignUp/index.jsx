@@ -45,7 +45,7 @@ const SignUp = () => {
       onFinishFailed={onFinishFailed}
     >
       <div className="login-holder w-1/4 p-8">
-        <h1 className="flex justify-center w-full mb-2 text-3xl font-bold text-black">
+        <h1 className="flex justify-center w-full mb-2 text-3xl font-bold text-black text-center">
           Welcome to Nestly!
         </h1>
         <p className="flex justify-center w-full mb-6 text-xl font-extralight">
