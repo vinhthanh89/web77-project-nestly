@@ -7,7 +7,7 @@ import { Form, Button, Input } from "antd";
 import { login } from "../../services/user";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { login as loginAction } from "../../features/user/userSlice.js";
+// import { login as loginAction } from "../../features/user/userSlice.js";
 import { useSelector } from "react-redux";
 import {
   saveTokenToLocalStorage,
@@ -25,7 +25,8 @@ const Login = () => {
     try {
       setLoading(true);
       const result = await login(values);
-      saveUserToLocalStorage(result.data.user);
+      saveUserToLocalStorage(result.data.returnUser);
+      saveTokenToLocalStorage(result.data.accessToken)
       toast.success("Login successfully!");
       navigate("/home")
     } catch (error) {
@@ -50,7 +51,7 @@ const Login = () => {
       onFinishFailed={onFinishFailed}
     >
       <div className="login-holder w-1/4 p-8">
-        <h1 className="flex justify-center w-full mb-2 text-3xl font-bold text-black">
+        <h1 className="flex justify-center w-full mb-2 text-3xl font-bold text-black text-center">
           Welcome to Nestly!
         </h1>
         <p className="flex justify-center w-full mb-6 text-xl font-extralight">
