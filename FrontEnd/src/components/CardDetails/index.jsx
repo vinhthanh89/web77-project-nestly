@@ -1,12 +1,12 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-function CardDetails({ selectedCard, closeCardDetails }) {
+function CardDetails() {
+  const { cardId } = useParams(); 
+  
   return (
     <div>
-      <h2>Selected Card</h2>
-      <h3>{selectedCard.name}</h3>
-      <p>{selectedCard.description}</p>
-      <button onClick={closeCardDetails}>Close</button>
+      <h1>Card Detail for ID: {cardId}</h1>
     </div>
   );
 }

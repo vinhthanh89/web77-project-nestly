@@ -1,28 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import "./style.css"
+import CardItems from '../CardItems';
 
-function CardList({ cards, showCardDetails }) {
+function CardList({ cards }) {
   return (
-    <div>
-      <h1>Card List</h1>
-      <div style={{ display: 'flex' }}>
-        {cards.map(cards => (
-          <div className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
-            <div className="card-body">
-              <h2 className="card-title">
-                Shoes!
-                <div className="badge badge-secondary">NEW</div>
-              </h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div className="card-actions justify-end">
-                <div className="badge badge-outline">Fashion</div>
-                <div className="badge badge-outline">Products</div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="p-8">
+      <h1 className="text-2xl text-gray-500 text-center mb-5 font-bold">
+        Danh sách nhà cho thuê
+      </h1>
+      <CardItems/>
     </div>
   );
 }

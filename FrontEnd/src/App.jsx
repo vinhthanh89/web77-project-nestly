@@ -9,7 +9,7 @@ import LandingPage from "./pages/LandingPage/index.jsx";
 import Home from "./pages/Home/index.jsx";
 import SignUp from "./pages/SignUp/index.jsx";
 import Login from "./pages/Login";
-import TodoCard from "./pages/TodoCard";
+import CardList from "./components/CardList/index.jsx";
 function App() {
   const user = useSelector((state) => state.users.user);
   return (
@@ -17,7 +17,7 @@ function App() {
       <Toaster />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/todo-card" element={<TodoCard />} />
+        <Route path="/card-list" element={<CardList />} />
         <Route path="/home" element={<Home />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
