@@ -1,15 +1,14 @@
-const CardDetails = () => {
+import React from 'react';
+import { useParams } from 'react-router-dom';
+
+function CardDetails() {
+  const { cardId } = useParams(); 
+  
   return (
-    <>
-      <div>
-        <div className="image-holder">
-          <img src="" alt="" />
-              </div>
-              {/* Handle card details */}
-        <h1>Hotel name, location: HCM, price.....</h1>
-        <p>Description</p>
-      </div>
-    </>
+    <div>
+      <h1>Card Detail for ID: {cardId}</h1>
+    </div>
   );
-};
+}
+
 export default CardDetails;
