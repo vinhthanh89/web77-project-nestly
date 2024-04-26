@@ -26,11 +26,11 @@ input::placeholder {
     color: black;
 }
 
-.btn span {
+.btn-holder .btn span {
     background: transparent;
 }
 
-.btn:hover {
+.btn-holder .btn:hover {
     border: none;
     box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.4);
 }
