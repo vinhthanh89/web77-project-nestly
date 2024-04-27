@@ -1,4 +1,4 @@
-import CardDetails from "../CardDetails";
+import CardDetails from "../../pages/CardDetails";
 
 const Card = () => {
   return <>

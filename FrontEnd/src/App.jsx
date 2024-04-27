@@ -9,7 +9,8 @@ import LandingPage from "./pages/LandingPage/index.jsx";
 import Home from "./pages/Home/index.jsx";
 import SignUp from "./pages/SignUp/index.jsx";
 import Login from "./pages/Login";
-// import CardList from "./components/CardList/index.jsx";
+import CardList from "./components/CardList";
+import CardDetails from "./pages/CardDetails";
 function App() {
   const user = useSelector((state) => state.users.user);
   return (
@@ -27,8 +28,9 @@ function App() {
             <Route path="/sign-up" element={<SignUp />} />
           </Route>
         ) : (
-          <Route path="" element={<AuthLayout />}>
+          <Route path="/home" element={<AuthLayout />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/card-detail" element={<CardDetails/>} />
           </Route>
         )}
       </Routes>
