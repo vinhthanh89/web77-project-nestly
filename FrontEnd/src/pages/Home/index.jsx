@@ -1,5 +1,5 @@
 import {Button} from "antd"
-import Places from "../../components/Places";
+// import Places from "../../components/Places";
 import { removeTokenFromLocalStorage, removeUserFromLocalStorage } from "../../utils/localstorage";
 import CardList from "../../components/CardList";
 

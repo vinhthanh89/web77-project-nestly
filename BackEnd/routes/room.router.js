@@ -1,12 +1,17 @@
-import {Router} from 'express'
-import { getPagingRooms, getRooms, filterRoomByCity, filterRoomsByType } from '../controllers/room.controller.js'
+import { Router } from "express";
+import {
+  getPagingRooms,
+  getRooms,
+  filterRoomByCity,
+  filterRoomsByType,
+} from "../controllers/room.controller.js";
+import { authentication } from "../middlewares/authentication.js";
 
-const router = Router()
+const router = Router();
 
-router.get('/get-rooms' , getRooms)
-router.get('/get-paging-rooms' , getPagingRooms)
-router.get('/filterByCity', filterRoomByCity)
-router.get('/filterByType' , filterRoomsByType)
+router.get("/get-rooms", getRooms);
+router.get("/get-paging-rooms", getPagingRooms);
+router.get("/filterByCity", filterRoomByCity);
+router.get("/filterByType", filterRoomsByType);
 
-
-export default router
+export default router;

@@ -18,7 +18,9 @@ const axiosInstanceAuth = axios.create({
 
 //! Trước khi gọi request, phải đi qua đây để lấy token
 axiosInstanceAuth.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${getTokenFromLocalStorage()}`;
+  const accessToken = getTokenFromLocalStorage();
+  config.headers['accesstoken'] = `Bearer ${accessToken}`
+  
   return config;
 });
 export { axiosInstance, axiosInstanceAuth };
