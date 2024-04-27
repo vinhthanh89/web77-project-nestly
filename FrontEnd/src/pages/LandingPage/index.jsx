@@ -11,22 +11,22 @@ const LandingPage = () => {
 
         <div className="top-container h-[100vh]">
           <NavigationBar />
-          <div className="quote mt-[12rem]">
-            <ul className="flex-col justify-center">
-              <h1 className="flex justify-center neon_1 text-7xl text-white">
+          <div className="quote mt-[8rem]">
+            <ul className="flex-col justify-center text-center">
+              <h1 className="neon_1 text-7xl text-white">
                 Affordable Diverse Convenient
               </h1>
-              <p className="flex justify-center neon_2 text-xl text-black font-semibold mt-8">
+              <p className="neon_2 text-xl text-black font-semibold mt-8">
                 Welcome to Nestly, a web platform designed for those seeking a
                 place they can call HOME
               </p>
             </ul>
             {/* Button */}
-            <div className="btn-holder w-full flex justify-center mt-8">
-              <button className="skeleton btn md:btn-md text-white">
-                <FaLongArrowAltRight />
+            <div className="btn-holder w-full flex justify-center mt-8 opacity-95">
+              <button className="skeleton btn md:btn-md text-white hover:opacity-100">
+                <FaLongArrowAltRight className="text-black" />
                 <Link>
-                  <p className="pb-1">Try Nestly now!</p>
+                  <p className="pb-1 text-black neon_2">Try Nestly now!</p>
                 </Link>
               </button>
             </div>

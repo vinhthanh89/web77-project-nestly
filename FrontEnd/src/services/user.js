@@ -15,4 +15,8 @@ const signUp = ({ username, email, password, phone }) => {
   });
 };
 
-export { login, signUp };
+const refreshAccessToken = () => {
+  return axiosInstance.get('/user/refresh-accesstoken')
+}
+
+export { login, signUp , refreshAccessToken};

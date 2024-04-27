@@ -19,11 +19,12 @@ export const signRefreshToken = (payload) => {
 }
 
 export const verifyToken = (token , SCRET_KEY) => {
-    const verify = jwt.verify(token ,  SCRET_KEY)
+    const splitedToken = token.split(' ')[1]
+    const verify = jwt.verify(splitedToken ,  SCRET_KEY)
 
-    if(verify){
-        return verify
+    if(!verify){
+        return null
     }
 
-    return null
+    return verify
 }

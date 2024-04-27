@@ -1,17 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
-import "./index.css";
-import { BiSolidLockAlt} from "react-icons/bi";
+
+import { Button, Form, Input } from "antd";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { BiSolidLockAlt } from "react-icons/bi";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
-import { Form, Button, Input } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../services/user";
-import toast from "react-hot-toast";
-import { useState } from "react";
+import "./index.css";
 // import { login as loginAction } from "../../features/user/userSlice.js";
 import { useSelector } from "react-redux";
 import {
+  saveRefreshTokenToLocal,
   saveTokenToLocalStorage,
-  saveUserToLocalStorage,
+  saveUserToLocalStorage
 } from "../../utils/localstorage";
 
 const Login = () => {
@@ -26,7 +28,7 @@ const Login = () => {
       setLoading(true);
       const result = await login(values);
       saveUserToLocalStorage(result.data.returnUser);
-      saveTokenToLocalStorage(result.data.accessToken)
+      saveTokenToLocalStorage(result.data.accessToken);
       toast.success("Login successfully!");
       navigate("/home")
     } catch (error) {
