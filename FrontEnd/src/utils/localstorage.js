@@ -30,6 +30,8 @@ const getUserFromLocalStorage = () => {
   const user = JSON.parse(userString);
   return user;
 };
+
+
 export {
   saveTokenToLocalStorage,
   removeTokenFromLocalStorage,

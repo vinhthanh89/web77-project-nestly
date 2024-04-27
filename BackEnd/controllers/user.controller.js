@@ -72,6 +72,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     const findUser = await User.findOne({ email });
+    
     if (!findUser) {
       return res.status(403).json({
         message: "Email người dùng không tồn tại",

@@ -1,17 +1,36 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import "./style.css"
-import CardItems from '../CardItems';
+import { useEffect, useState } from "react";
+import RoomCard from "../RoomCard";
+import "./style.css";
+import { fetchRoomData } from "../../services/room";
 
-function CardList({ cards }) {
+const CardList = () => {
+  const [roomData, setRoomData] = useState([]);
+  useEffect(() => {
+    const data = async () => {
+      try {
+        const response = await fetchRoomData();
+        console.log(response.data.rooms);
+        setRoomData(response.data.rooms);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    data();
+  }, []);
+
+  const renderData = roomData.map((item) => {
+    return (
+      <div key={item._id}>
+        <RoomCard props={item} />
+      </div>
+    );
+  });
+
   return (
-    <div className="p-8">
-      <h1 className="text-2xl text-gray-500 text-center mb-5 font-bold">
-        Danh sách nhà cho thuê
-      </h1>
-      <CardItems/>
+    <div className="py-[20px] w-full h-full grid grid-cols-auto-fit-300 justify-items-center items-center gap-y-[15px] gap-x-[5px]">
+      {renderData}
     </div>
   );
-}
+};
 
 export default CardList;

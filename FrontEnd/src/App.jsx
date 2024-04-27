@@ -9,27 +9,27 @@ import LandingPage from "./pages/LandingPage/index.jsx";
 import Home from "./pages/Home/index.jsx";
 import SignUp from "./pages/SignUp/index.jsx";
 import Login from "./pages/Login";
-import CardList from "./components/CardList/index.jsx";
+// import CardList from "./components/CardList/index.jsx";
 function App() {
   const user = useSelector((state) => state.users.user);
   return (
     <>
       <Toaster />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/card-list" element={<CardList />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/" element={<LandingPage />} /> */}
+        {/* <Route path="/card-list" element={<CardList />} /> */}
+        {/* <Route path="/home" element={<Home />} /> */}
+        {/* <Route path="/sign-up" element={<SignUp />} /> */}
+        {/* <Route path="/login" element={<Login />} /> */}
         {isObjectEmpty(user) ? (
           <Route path="" element={<NonAuthLayout />}>
-            <Route path="" element={<LandingPage />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
           </Route>
         ) : (
           <Route path="" element={<AuthLayout />}>
-            <Route path="" element={<Home />} />
+            <Route path="/home" element={<Home />} />
           </Route>
         )}
       </Routes>

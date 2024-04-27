@@ -10,6 +10,7 @@ import {
 const axiosInstance = axios.create({
   baseURL: API_URL,
 });
+
 //! API with token
 const axiosInstanceAuth = axios.create({
   baseURL: API_URL,

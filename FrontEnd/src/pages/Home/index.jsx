@@ -1,14 +1,20 @@
 import {Button} from "antd"
 import Places from "../../components/Places";
-import { removeTokenFromLocalStorage } from "../../utils/localstorage";
+import { removeTokenFromLocalStorage, removeUserFromLocalStorage } from "../../utils/localstorage";
+import CardList from "../../components/CardList";
+
 const Home = () => {
+  const handleLogOut = () => {
+    removeTokenFromLocalStorage();
+    removeUserFromLocalStorage()
+  }
+
   return (
-    <>
       <div className="home-page">
-        <Places />
-        <Button onClick={removeTokenFromLocalStorage()}>Logout</Button>
+        {/* <Places /> */}
+        <Button onClick={handleLogOut}>Logout</Button>
+        <CardList />
       </div>
-    </>
   );
 };
 export default Home;

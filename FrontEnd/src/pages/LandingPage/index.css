@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: "Quicksand";
 }
+
 .top-container{
     background:linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.5)), url("/assets/background.jpg");
     background-size: cover;
@@ -13,6 +14,7 @@
     left: 0;
     z-index: -1;
 }
+
 .neon_1{
     text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #020a12, 0 0 20px #011930, 0 0 25px #fbfdff, 0 0 30px #51a0f4, 0 0 35px #025ab3;
 }
