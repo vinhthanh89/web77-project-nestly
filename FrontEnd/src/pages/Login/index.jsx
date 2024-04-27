@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
-import { BiSolidLockAlt, BiSolidUser } from "react-icons/bi";
+import { BiSolidLockAlt} from "react-icons/bi";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
 import { Form, Button, Input } from "antd";

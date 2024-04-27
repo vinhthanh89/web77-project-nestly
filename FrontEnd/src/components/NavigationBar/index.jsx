@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import "./index.css";
-const NavigationBar = ({ isLoggedIn }) => {
+import Avatar from "../Avatar";
+import { useState } from "react";
+const NavigationBar = () => {
+  const [isLogin, setIsLogin] = useState(localStorage.getItem("user") || []);
   return (
     <>
       <div className="nav-bar flex justify-end items-center pt-8">
         <ul className="nav-menu flex items-center gap-20">
-          {isLoggedIn ? (
-            <div className="user">
-              <img src="" alt="" />
-              <Link to="/user">User</Link>
-            </div>
+          {isLogin ? (
+            <Avatar/>
           ) : (
             <div className="pr-5">
               <Link

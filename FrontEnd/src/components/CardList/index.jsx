@@ -27,9 +27,13 @@ const CardList = () => {
   });
 
   return (
-    <div className="py-[20px] w-full h-full grid grid-cols-auto-fit-300 justify-items-center items-center gap-y-[15px] gap-x-[5px]">
-      {renderData}
-    </div>
+    <>
+      <div className="card-list bg-white">
+        <div className="py-[2rem] px-[2rem] grid grid-cols-auto-fit-300 justify-items-center items-center gap-y-[15px] gap-x-[5px]">
+          {renderData}
+        </div>
+      </div>
+    </>
   );
 };
 

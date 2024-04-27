@@ -23,7 +23,7 @@ const RoomCard = ({ props }) => {
     return (
       <>
         <img
-          className="w-full h-[170px] rounded-[12px] cursor-pointer"
+          className="w-full h-[18rem] rounded-[12px] cursor-pointer ring-1"
           src={image}
         />
       </>
@@ -31,18 +31,20 @@ const RoomCard = ({ props }) => {
   });
 
   return (
-    <div className="w-[300px] h-[300px] flex flex-col gap-y-[10px]">
-      <div className="w-full h-[180px]">
+    <div className="w-[20rem] h-[30rem] flex flex-col gap-y-[10px]">
+      <div className="w-full">
         <Slider {...settings}>{renderImages}</Slider>
       </div>
       <div className="h-[120px] flex flex-col justify-evenly">
-        <div className="text-ellipsis w-full whitespace-nowrap text-[18px] overflow-hidden font-bold" >
-            {city} , {district} , {address}
+        <div className="text-ellipsis w-full whitespace-nowrap text-[18px] overflow-hidden font-black text-black">
+          {city} , {district} , {address}
         </div>
         <div>
-          <p>Area : {area} ft</p>
-          <p>BedRoom : {numberOfBedrooms}</p>
-          <p><span className="font-semibold">{rentPrice}</span>$ / night</p>
+          <p className="text-black">Area: {area} ft</p>
+          <p className="text-black">BedRoom: {numberOfBedrooms}</p>
+          <p className="text-black">
+            <span className="font-semibold">{rentPrice}</span>$/night
+          </p>
         </div>
       </div>
     </div>

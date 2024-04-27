@@ -16,11 +16,10 @@ function App() {
     <>
       <Toaster />
       <Routes>
-        {/* <Route path="/" element={<LandingPage />} /> */}
-        {/* <Route path="/card-list" element={<CardList />} /> */}
-        {/* <Route path="/home" element={<Home />} /> */}
-        {/* <Route path="/sign-up" element={<SignUp />} /> */}
-        {/* <Route path="/login" element={<Login />} /> */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
         {isObjectEmpty(user) ? (
           <Route path="" element={<NonAuthLayout />}>
             <Route path="/" element={<LandingPage />} />
@@ -28,7 +27,7 @@ function App() {
             <Route path="/sign-up" element={<SignUp />} />
           </Route>
         ) : (
-          <Route path="" element={<AuthLayout />}>
+          <Route path="/home" element={<AuthLayout />}>
             <Route path="/home" element={<Home />} />
           </Route>
         )}
