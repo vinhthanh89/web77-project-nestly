@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.logo {
+    font-family: "Josefin Sans", sans-serif;
+}
+
+.footer {
+    border-bottom: 2px solid rgb(133, 133, 133);
+}
