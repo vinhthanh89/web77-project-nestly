@@ -1,0 +1,29 @@
+
+.slick-next{
+    right: 5px;
+}
+
+.slick-prev{
+    left: 5px;
+}
+
+.slick-prev::before , .slick-next::before{
+    font-size: 20px;
+    visibility: hidden;
+}
+
+.slick-slider:hover .slick-next::before{
+    visibility: visible;
+}
+
+.slick-slider:hover .slick-prev::before{
+    visibility: visible;
+}
+
+.slick-arrow{
+    z-index: 1;
+}
+
+.slick-arrow.slick-prev{
+    background: none;
+}

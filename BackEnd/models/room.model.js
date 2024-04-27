@@ -1,12 +1,8 @@
 import mongoose from "mongoose";
 
 const Room = new mongoose.Schema({
-    type : {
-        type : String,
-        required : true
-    },
     city : {
-        type : String,
+        type : String ,
         required : true
     },
     district : {
@@ -18,27 +14,33 @@ const Room = new mongoose.Schema({
         required : true
     },
     area : {
-        type : Number,
-        required : true
+        type : Number ,
     },
     numberOfBedrooms : {
         type : Number ,
+    },
+    rentPrice : {
+        type : Number ,
         required : true
     },
-    image : {
-        type : Array
+    images : {
+        type : Array,
     },
     description : {
-        type : String
-    },
-    price : {
-        type : Number,
+        type : String ,
         required : true
     },
-    createdBy : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "users"
+    type : {
+        type : String,
+        required : true
     },
+    owner : {
+        type : String ,
+        required : true
+    },
+    bookingDate : {
+        type : Array ,
+    }
 } , {
     timestamps : true
 })
