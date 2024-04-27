@@ -1,6 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import { Link } from "react-router-dom";
 
 import "./style.css";
 
@@ -35,6 +36,9 @@ const RoomCard = ({ props }) => {
       <div className="w-full">
         <Slider {...settings}>{renderImages}</Slider>
       </div>
+      <Link to={`/card-list/${props._id}`}>
+        {props.title}
+      </Link>
       <div className="h-[120px] flex flex-col justify-evenly">
         <div className="text-ellipsis w-full whitespace-nowrap text-[18px] overflow-hidden font-black text-black">
           {city} , {district} , {address}

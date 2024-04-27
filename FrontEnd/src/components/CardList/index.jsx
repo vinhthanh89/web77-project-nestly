@@ -12,7 +12,7 @@ const CardList = () => {
         console.log(response.data.rooms);
         setRoomData(response.data.rooms);
       } catch (error) {
-        console.log(error);
+        
       }
     };
     data();
