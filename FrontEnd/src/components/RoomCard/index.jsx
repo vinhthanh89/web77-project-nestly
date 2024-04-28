@@ -22,12 +22,12 @@ const RoomCard = ({ props }) => {
   // eslint-disable-next-line react/prop-types
   const renderImages = images.map((image) => {
     return (
-      <>
+      <div key={image}>
         <img
           className="w-full h-[18rem] rounded-[12px] cursor-pointer ring-1"
           src={image}
         />
-      </>
+      </div>
     );
   });
 
@@ -36,9 +36,7 @@ const RoomCard = ({ props }) => {
       <div className="w-full">
         <Slider {...settings}>{renderImages}</Slider>
       </div>
-      <Link to={`/card-list/${props._id}`}>
-        {props.title}
-      </Link>
+      <Link to={`/card-list/${props._id}`}>{props.title}</Link>
       <div className="h-[120px] flex flex-col justify-evenly">
         <div className="text-ellipsis w-full whitespace-nowrap text-[18px] overflow-hidden font-black text-black">
           {city} , {district} , {address}

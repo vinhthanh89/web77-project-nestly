@@ -3,6 +3,7 @@ import {
   getUserFromLocalStorage,
   removeTokenFromLocalStorage,
   removeUserFromLocalStorage,
+  saveUserToLocalStorage,
 } from "../../utils/localstorage";
 
 //! State ban đầu
@@ -12,17 +13,17 @@ const initialState = {
 
 //! name là tên của reducer
 export const userSlice = createSlice({
-  name: "user",
+  name: "users",
   initialState,
   //todo Reducers dùng để cập nhật
   //! 2 params: state, action
   reducers: {
     login: (state, action) => {
-      // console.log(action) // Check lại
-      console.log(action.payload.user); //! Lấy user
       //! Cập nhật lại user
-      state.user = action.payload.user; //! Sau khi đăng nhập, ta cập nhật data như sau
+      state.user = action.payload.user;
+      //! Sau khi đăng nhập, ta cập nhật data như sau
     },
+    
     logout: (state, action) => {
       state.user = {};
       removeUserFromLocalStorage();

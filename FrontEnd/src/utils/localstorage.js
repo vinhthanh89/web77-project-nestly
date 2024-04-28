@@ -27,6 +27,7 @@ const getUserFromLocalStorage = () => {
   if (!userString) {
     return {}; //! Khi chưa đăng nhập, thường dữ liệu chưa có nên phải check
   }
+  
   const user = JSON.parse(userString);
   return user;
 };

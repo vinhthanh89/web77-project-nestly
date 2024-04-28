@@ -1,17 +1,25 @@
 import { Link } from "react-router-dom";
 import "./index.css";
+import { useSelector } from "react-redux";
+
 import Avatar from "../Avatar";
-import { useState } from "react";
+import isObjectEmpty from "../../utils/isObjectEmpty";
+// import { useState } from "react";
+
 const NavigationBar = () => {
-  const [isLogin, setIsLogin] = useState(localStorage.getItem("user") || []);
+  const user = useSelector(state => state.users.user)
+  // const [userLogin , setUserLogin] = useState(JSON.parse(localStorage.getItem('user')) || null)
+
+  // const handleLogOutUser = () => {
+  //   setUserLogin(null)
+  // }
+
   return (
     <>
       <div className="nav-bar flex justify-end items-center pt-8">
         <ul className="nav-menu flex items-center gap-20">
-          {isLogin ? (
-            <Avatar/>
-          ) : (
-            <div className="pr-5">
+          {isObjectEmpty(user) ? 
+             (<div className="pr-5">
               <Link
                 to="/login"
                 className="btn text-white text-xl font-medium bg-blue-700 hover:scale-105 hover:bg-blue-700"
@@ -24,8 +32,7 @@ const NavigationBar = () => {
               >
                 Sign up
               </Link>
-            </div>
-          )}
+            </div>) : (<Avatar user={user} />) }
         </ul>
       </div>
     </>

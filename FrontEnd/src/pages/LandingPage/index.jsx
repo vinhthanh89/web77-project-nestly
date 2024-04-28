@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import NavigationBar from "../../components/NavigationBar";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import "./index.css";
 const LandingPage = () => {
+  const nagative = useNavigate()
   return (
     <>
       <div className="landing-page">
@@ -23,9 +24,9 @@ const LandingPage = () => {
             </ul>
             {/* Button */}
             <div className="btn-holder w-full flex justify-center mt-8 opacity-95">
-              <button className="skeleton btn md:btn-md text-white hover:opacity-100">
+              <button onClick={() => nagative('/home')} className="skeleton btn md:btn-md text-white hover:opacity-100">
                 <FaLongArrowAltRight className="text-black" />
-                <Link>
+                <Link >
                   <p className="pb-1 text-black neon_2">Try Nestly now!</p>
                 </Link>
               </button>
