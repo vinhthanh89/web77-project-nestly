@@ -7,23 +7,23 @@ import {
 } from "../../utils/localstorage";
 import "./index.css";
 import { Button, Select } from "antd";
+import { useSelector } from "react-redux";
+import isObjectEmpty from "../../utils/isObjectEmpty";
+import Avatar from "../Avatar";
 
 const Header = () => {
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const handleLogOut = () => {
-    try {
-      setLoading(true);
-      removeTokenFromLocalStorage();
-      removeUserFromLocalStorage();
-      toast.success("Logout successfully!");
-      navigate("/");
-    } catch (error) {
-      toast.error(error.response.data?.message || error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const user = useSelector((state) => state.users.user);
+  // const navigate = useNavigate();
+  // const handleLogOut = () => {
+  //   try {
+  //     removeTokenFromLocalStorage();
+  //     removeUserFromLocalStorage();
+  //     toast.success("Logout successfully!");
+  //     navigate("/");
+  //   } catch (error) {
+  //     toast.error(error.response.data?.message || error.message);
+  //   }
+  // };
   return (
     <>
       <div className="header w-full flex justify-between bg-black p-[1rem] sticky top-0 z-[1]">
@@ -40,7 +40,7 @@ const Header = () => {
           <Select
             placeholder="Type"
             style={{
-              width: 120,              
+              width: 120,
             }}
             // onChange={isOpen}
             options={[
@@ -82,35 +82,24 @@ const Header = () => {
         </div>
         {/* User & Avatar */}
         <div className="flex items-center gap-5">
-          <div>
-            <p className="flex justify-end text-white text-xl font-black">
-              Chou Lee
-            </p>
-            <p className="flex justify-end">Guest</p>
-          </div>
-          <div className="dropdown pt-1">
-            <details className="dropdown-end border-none">
-              <summary className="avatar w-12">
-                <img
-                  src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                  className="w-full rounded-full transition-[transform,0.3s,ease] hover:scale-105 active:scale-100"
-                />
-              </summary>
-              <ul className="menu dropdown-content z-[1] bg-base-100 rounded-box w-24">
-                <li>
-                  <Link to="/account">Account</Link>
-                </li>
-                <Button
-                  htmlType="submit"
-                  loading={loading}
-                  onClick={handleLogOut}
-                  className="bg-red-600 border-none text-white"
-                >
-                  Logout
-                </Button>
-              </ul>
-            </details>
-          </div>
+          {isObjectEmpty(user) ? (
+            <div className="pr-5">
+              <Link
+                to="/login"
+                className="btn text-white text-xl font-medium bg-blue-700 hover:scale-105 hover:bg-blue-700"
+              >
+                Login
+              </Link>
+              <Link
+                to="/sign-up"
+                className="btn ml-5 text-white text-xl font-medium hover:scale-105"
+              >
+                Sign up
+              </Link>
+            </div>
+          ) : (
+            <Avatar user={user} />
+          )}
         </div>
       </div>
     </>

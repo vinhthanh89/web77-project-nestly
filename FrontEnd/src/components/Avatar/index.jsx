@@ -1,27 +1,29 @@
+/* eslint-disable react/prop-types */
 import { Button } from "antd";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  removeTokenFromLocalStorage,
-  removeUserFromLocalStorage,
-} from "../../utils/localstorage";
+// import {
+//   removeTokenFromLocalStorage,
+//   removeUserFromLocalStorage,
+// } from "../../utils/localstorage";
 import toast from "react-hot-toast";
+// import { useSelector } from "react-redux";
+import { logout } from "../../features/user/userSlice";
+import { useDispatch } from "react-redux";
 
-const Avatar = () => {
-    const [loading, setLoading] = useState(false);
+// eslint-disable-next-line react/prop-types
+const Avatar = ({user}) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const handleLogOut = () => {
       try {
-        setLoading(true);
-        removeTokenFromLocalStorage();
-        removeUserFromLocalStorage();
+        dispatch(logout())
+        // removeTokenFromLocalStorage();
+        // removeUserFromLocalStorage();
         toast.success("Logout successfully!");
         navigate("/");
       } catch (error) {
         toast.error(error.response.data?.message || error.message);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
     return (
       <>
@@ -29,16 +31,16 @@ const Avatar = () => {
           <div className="flex items-center gap-5">
             <div>
               <p className="flex justify-end text-white text-xl font-black">
-                Chou Lee
+                {user.username}
               </p>
-              <p className="flex justify-end">Guest</p>
+              <p className="flex text-white justify-end">{user.role}</p>
             </div>
             <div className="dropdown pt-1">
               <details className="dropdown-end border-none">
-                <summary className="avatar w-12">
+                <summary className="avatar w-12 h-12">
                   <img
-                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                    className="w-full rounded-full transition-[transform,0.3s,ease] hover:scale-105 active:scale-100"
+                    src={user.avatar}
+                    className="w-full rounded-[50%] transition-[transform,0.3s,ease] hover:scale-105 active:scale-100"
                   />
                 </summary>
                 <ul className="menu dropdown-content z-[1] bg-base-100 rounded-box w-24">
@@ -47,7 +49,6 @@ const Avatar = () => {
                   </li>
                   <Button
                     htmlType="submit"
-                    loading={loading}
                     onClick={handleLogOut}
                     className="bg-red-600 border-none text-white"
                   >

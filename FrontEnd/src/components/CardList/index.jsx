@@ -9,10 +9,9 @@ const CardList = () => {
     const data = async () => {
       try {
         const response = await fetchRoomData();
-        console.log(response.data.rooms);
         setRoomData(response.data.rooms);
       } catch (error) {
-        
+        console.log(error);
       }
     };
     data();
