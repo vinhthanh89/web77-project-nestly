@@ -1,29 +1,29 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import {
-  removeTokenFromLocalStorage,
-  removeUserFromLocalStorage,
-} from "../../utils/localstorage";
-import "./index.css";
-import { Button, Select } from "antd";
+import { Select } from "antd";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import isObjectEmpty from "../../utils/isObjectEmpty";
 import Avatar from "../Avatar";
+import "./index.css";
+import { useEffect, useState } from "react";
+import { fetchCityOptions } from "../../services/room";
 
 const Header = () => {
   const user = useSelector((state) => state.users.user);
-  // const navigate = useNavigate();
-  // const handleLogOut = () => {
-  //   try {
-  //     removeTokenFromLocalStorage();
-  //     removeUserFromLocalStorage();
-  //     toast.success("Logout successfully!");
-  //     navigate("/");
-  //   } catch (error) {
-  //     toast.error(error.response.data?.message || error.message);
-  //   }
-  // };
+  const [cityOptions , setCityOptions] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchCityOptions()
+        console.log(response.data.cityArray);
+        setCityOptions(response.data.cityArray)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData()
+  }, [])
+
   return (
     <>
       <div className="header w-full flex justify-between bg-black p-[1rem] sticky top-0 z-[1]">
@@ -38,11 +38,12 @@ const Header = () => {
         {/* Filter */}
         <div className="flex items-center gap-5">
           <Select
+            className="input_select"
             placeholder="Type"
             style={{
               width: 120,
             }}
-            // onChange={isOpen}
+
             options={[
               {
                 value: "all",
@@ -59,25 +60,18 @@ const Header = () => {
             ]}
           />
           <Select
+            className="input_select"
             placeholder="Search city"
             style={{
               width: 120,
             }}
-            // onChange={isOpen}
-            options={[
-              {
-                value: "jack",
-                label: "Jack",
-              },
-              {
-                value: "lucy",
-                label: "Lucy",
-              },
-              {
-                value: "Yiminghe",
-                label: "yiminghe",
-              },
-            ]}
+
+            options={cityOptions.map(city => {
+              return {
+                value : city ,
+                label : city
+              }
+            })}
           />
         </div>
         {/* User & Avatar */}

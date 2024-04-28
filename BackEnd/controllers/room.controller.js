@@ -42,6 +42,44 @@ export const getPagingRooms = async (req , res) => {
     }
 }
 
+export const getRoomById = async (req , res) => {
+    try {
+        const roomId = req.params.id
+
+        const findRoom = await Room.findById(roomId);
+
+        return res.status(200).json({
+            message : "Lấy dữ liệu thành công",
+            findRoom
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getCityOptions = async (req , res) => {
+    try {
+        const roomData = await Room.find()
+        console.log(roomData);
+        const cityArray = [];
+
+        for(const room of roomData){
+            if(cityArray.includes(room.city) === false){
+                cityArray.push(room.city)
+            }
+        }
+
+        return res.status(200).json({
+            message : "Lấy dữ liệu thành công",
+            cityArray
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const filterRoomByCity = async (req , res) => {
     try {
         const cityKeyword = req.query.city
