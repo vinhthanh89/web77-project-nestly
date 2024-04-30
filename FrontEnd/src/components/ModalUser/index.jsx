@@ -1,4 +1,4 @@
-import { Modal, Input, Form, Button} from "antd";
+import { Modal, Input, Form, Button } from "antd";
 import { useState } from "react";
 const ModalUser = () => {
   const [open, setOpen] = useState(false);
@@ -15,10 +15,12 @@ const ModalUser = () => {
       setConfirmLoading(false);
     }, 2000);
   };
+
   const handleCancel = () => {
     console.log("Clicked cancel button");
     setOpen(false);
   };
+  
   return (
     <>
       <Button onClick={showModal} className="pl-[1.4rem] pb-[2rem] font-black">
@@ -33,7 +35,7 @@ const ModalUser = () => {
         cancelButtonProps={{ style: { display: "none" } }}
         confirmLoading={confirmLoading}
       >
-        <Form name="basic" initialValues={{}} onFinish={handleOk} >
+        <Form name="basic" initialValues={{}} onFinish={handleOk}>
           <Form.Item
             label="Username"
             name="name"
@@ -58,7 +60,19 @@ const ModalUser = () => {
             ]}
           >
             <Input />
-          </Form.Item>          
+          </Form.Item>
+          <Form.Item
+            label="Phone"
+            name="phone"
+            rules={[
+              {
+                required: true,
+                message: "Please input your phone!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
           <Form.Item
             wrapperCol={{
               offset: 8,

@@ -63,7 +63,7 @@ const CardList = () => {
           <Space direction="vertical">
             <Radio value="all">All</Radio>
             <Radio value="house">House</Radio>
-            <Radio value="apartmen">Apartment</Radio>
+            <Radio value="apartment">Apartment</Radio>
           </Space>
         </Radio.Group>
       ),

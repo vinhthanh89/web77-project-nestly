@@ -1,14 +1,9 @@
 /* eslint-disable react/prop-types */
 import { Button } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-// import {
-//   removeTokenFromLocalStorage,
-//   removeUserFromLocalStorage,
-// } from "../../utils/localstorage";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-// import { useSelector } from "react-redux";
-import { logout } from "../../features/user/userSlice";
 import { useDispatch } from "react-redux";
+import { logout } from "../../features/user/userSlice";
 import ModalUser from "../ModalUser";
 
 // eslint-disable-next-line react/prop-types
@@ -18,14 +13,13 @@ const Avatar = ({user}) => {
     const handleLogOut = () => {
       try {
         dispatch(logout())
-        // removeTokenFromLocalStorage();
-        // removeUserFromLocalStorage();
         toast.success("Logout successfully!");
         navigate("/");
       } catch (error) {
         toast.error(error.response.data?.message || error.message);
       } 
     };
+
     return (
       <>
         <div className="user">
