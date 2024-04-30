@@ -32,7 +32,7 @@ const RoomCard = ({ props }) => {
   });
 
   return (
-    <div className="w-[20rem] h-[30rem] flex flex-col gap-y-[10px]">
+    <div className="h-[30rem] flex flex-col gap-y-[10px]">
       <div className="w-full">
         <Slider {...settings}>{renderImages}</Slider>
       </div>
