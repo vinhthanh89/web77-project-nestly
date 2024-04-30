@@ -36,7 +36,7 @@ const Header = () => {
               </Link>
             </div>
           ) : (
-            <Avatar user={user} />
+            <Avatar />
           )}
         </div>
       </div>
