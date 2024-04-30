@@ -1,5 +1,5 @@
 //! Dùng để chứa những hàm liên quan đến user
-import { axiosInstance } from "./index.js";
+import { axiosInstance, axiosInstanceAuth } from "./index.js";
 
 
 const login = ({ email, password }) => {
@@ -15,8 +15,12 @@ const signUp = ({ username, email, password, phone }) => {
   });
 };
 
+const getUserById = (userId) => {
+  return axiosInstanceAuth.get(`/user/${userId}`);
+};
+
 const refreshAccessToken = () => {
   return axiosInstance.get('/user/refresh-accesstoken')
 }
 
-export { login, signUp , refreshAccessToken};
+export { login, signUp , refreshAccessToken, getUserById};
