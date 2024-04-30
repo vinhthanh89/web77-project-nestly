@@ -12,9 +12,7 @@ import Login from "./pages/Login";
 import CardDetails from "./pages/CardDetails";
 function App() {
   const user = useSelector((state) => state.users.user);
-  console.log(user);
 
-  
   return (
     <>
       <Toaster />

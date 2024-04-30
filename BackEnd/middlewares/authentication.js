@@ -16,7 +16,7 @@ export const authentication = async (req, res, next) => {
         message: "Xác thực token thất bại",
       });
     }
-    console.log(verify);
+
     req.user = verify.payload;
 
     next();

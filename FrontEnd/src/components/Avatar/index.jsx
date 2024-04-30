@@ -2,12 +2,13 @@
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { logout } from "../../features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { edit, logout } from "../../features/user/userSlice";
 import ModalUser from "../ModalUser";
 
 // eslint-disable-next-line react/prop-types
-const Avatar = ({user}) => {
+const Avatar = () => {
+  const user = useSelector(state => state.users.user)
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const handleLogOut = () => {
@@ -20,6 +21,10 @@ const Avatar = ({user}) => {
       } 
     };
 
+    const handleEdit = (payload) => {
+      dispatch(edit({user : payload}))
+    }
+
     return (
       <>
         <div className="user">
@@ -30,7 +35,7 @@ const Avatar = ({user}) => {
               </p>
               <p className="flex text-white justify-end">{user.role}</p>
             </div>
-            <div className="dropdown pt-1">
+            <div className="dropdown pt-1 cursor-pointer">
               <details className="dropdown-end border-none">
                 <summary className="avatar w-12 h-12">
                   <img
@@ -40,7 +45,7 @@ const Avatar = ({user}) => {
                 </summary>
                 <ul className="menu dropdown-content z-[1] rounded-box bg-base-300 w-28">
                   <li className="mb-3">
-                    <ModalUser />
+                    <ModalUser user={user} handleEdit={handleEdit} />
                   </li>
                   <li>
                     <Button
