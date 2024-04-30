@@ -42,7 +42,7 @@ export const signUp = async (req, res) => {
       username,
       email,
       password: hashPassword,
-      avatar: (avatar?.path || ''),
+      avatar: (avatar?.path || "https://res.cloudinary.com/du6uinlwy/image/upload/v1714406960/Nestly/Logo_white_fxhsab.png"),
       phone,
     });
 

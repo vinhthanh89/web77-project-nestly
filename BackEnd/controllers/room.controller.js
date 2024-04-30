@@ -4,7 +4,34 @@ import Room from "../models/room.model.js"
 
 export const getRooms = async (req , res) => {
     try {
-        const rooms = await Room.find()
+        let {type , city , sort} = req.query;
+
+        let filterQuery = {
+            type : type,
+            city : city
+          }
+      
+          let sortQuery = {
+            rentPrice : sort
+          }
+      
+          if(type === 'all' && city === 'all'){
+            filterQuery = {}
+          }
+      
+          if(type === 'all' && city !== 'all'){
+              filterQuery = {city : city}
+          }
+          
+          if(type !== 'all' && city === 'all'){
+              filterQuery = {type : type}
+          }
+      
+          if(sort === '0'){
+            sortQuery = {}
+          }
+
+        const rooms = await Room.find(filterQuery).sort(sortQuery);
 
         return res.status(200).json({
             message : "Lấy dữ liệu Room thành công",
@@ -61,7 +88,6 @@ export const getRoomById = async (req , res) => {
 export const getCityOptions = async (req , res) => {
     try {
         const roomData = await Room.find()
-        console.log(roomData);
         const cityArray = [];
 
         for(const room of roomData){

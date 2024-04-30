@@ -15,7 +15,7 @@ const User = new mongoose.Schema({
     },
     avatar : {
         type : String ,
-        default : "https://res.cloudinary.com/du6uinlwy/image/upload/v1714291770/download_wesi0a.jpg"
+        default : "https://res.cloudinary.com/du6uinlwy/image/upload/v1714406960/Nestly/Logo_white_fxhsab.png"
     },
     phone : {
         type : String ,

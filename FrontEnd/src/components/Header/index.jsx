@@ -1,28 +1,11 @@
-import { Select } from "antd";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import isObjectEmpty from "../../utils/isObjectEmpty";
 import Avatar from "../Avatar";
 import "./index.css";
-import { useEffect, useState } from "react";
-import { fetchCityOptions } from "../../services/room";
 
 const Header = () => {
   const user = useSelector((state) => state.users.user);
-  const [cityOptions , setCityOptions] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchCityOptions()
-        console.log(response.data.cityArray);
-        setCityOptions(response.data.cityArray)
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchData()
-  }, [])
 
   return (
     <>
@@ -35,45 +18,6 @@ const Header = () => {
           </h1>
         </div>
 
-        {/* Filter */}
-        <div className="flex items-center gap-5">
-          <Select
-            className="input_select"
-            placeholder="Type"
-            style={{
-              width: 120,
-            }}
-
-            options={[
-              {
-                value: "all",
-                label: "All",
-              },
-              {
-                value: "house",
-                label: "House",
-              },
-              {
-                value: "apartment",
-                label: "Apartment",
-              },
-            ]}
-          />
-          <Select
-            className="input_select"
-            placeholder="Search city"
-            style={{
-              width: 120,
-            }}
-
-            options={cityOptions.map(city => {
-              return {
-                value : city ,
-                label : city
-              }
-            })}
-          />
-        </div>
         {/* User & Avatar */}
         <div className="flex items-center gap-5">
           {isObjectEmpty(user) ? (
