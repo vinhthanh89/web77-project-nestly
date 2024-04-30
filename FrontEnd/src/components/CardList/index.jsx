@@ -30,6 +30,7 @@ const CardList = () => {
     fetchData();
   }, [queryValue]);
 
+  //! Data
   const renderData = roomData.map((item) => {
     return (
       <div key={item._id}>
@@ -92,10 +93,11 @@ const CardList = () => {
 
   return (
     <>
-      <div className="card-list w-full h-screen flex items-center px-[20px] gap-[10px] mt-[20px]">
-        <div className="w-[27%] h-screen border-solid border-[1px] border-[lightgray] py-[20px] pl-[15px] rounded-[10px] max-md:hidden">
+      <div className="card-list w-full flex px-[2rem] py-[2rem] gap-[10px] bg-white">
+        {/* filter */}
+        <div className="w-[20%] h-[screen] border-solid border-[2px] border-[lightgray] px-[1rem] pt-[1rem] rounded-[10px] max-md:hidden">
           <div>
-            <span className="mr-[10px]">Sort By</span>
+            <span className="mr-[1rem]">Sort By</span>
             <Select
               onChange={(value) => {
                 setQueryValue((prevState) => ({
@@ -104,9 +106,6 @@ const CardList = () => {
                 }));
               }}
               placeholder="Sort By Price"
-              style={{
-                width: 160,
-              }}
               options={[
                 {
                   value: "asc",
@@ -122,13 +121,13 @@ const CardList = () => {
           <div>
             <Collapse
               items={items}
-              ghost
+              ghost              
               defaultActiveKey={["1"]}
               onChange={(key) => key}
             />
           </div>
         </div>
-        <div className="w-full h-full">
+        <div className="w-[80%]">
           <div className="float-right mb-[15px] hidden max-md:block">
             <Select
               className="input_select mr-[10px]"
@@ -200,7 +199,7 @@ const CardList = () => {
               ]}
             />
           </div>
-          <div className="w-full h-screen grid grid-cols-auto-fit-240 items-center gap-[10px]">
+          <div className="grid grid-cols-auto-fit-240 items-center gap-[10px]">
             {renderData}
           </div>
         </div>

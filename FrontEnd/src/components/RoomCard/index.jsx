@@ -2,7 +2,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { Link } from "react-router-dom";
-
+import { MdOutlineBedroomParent } from "react-icons/md";
 import "./style.css";
 
 // eslint-disable-next-line react/prop-types
@@ -24,7 +24,7 @@ const RoomCard = ({ props }) => {
     return (
       <div key={image}>
         <img
-          className="w-full h-[18rem] rounded-[12px] cursor-pointer ring-1"
+          className="w-full h-[16rem] rounded-[12px] cursor-pointer"
           src={image}
         />
       </div>
@@ -32,22 +32,27 @@ const RoomCard = ({ props }) => {
   });
 
   return (
-    <div className="h-[30rem] flex flex-col gap-y-[10px]">
-      <div className="w-full">
+    <div className="h-[28rem] flex flex-col gap-y-[0.5rem]">
+      <div>
         <Slider {...settings}>{renderImages}</Slider>
       </div>
       <Link to={`/card-list/${props._id}`}>{props.title}</Link>
-      <div className="h-[120px] flex flex-col justify-evenly">
+      <div className="h-[110px] flex flex-col justify-evenly">
         <div className="text-ellipsis w-full whitespace-nowrap text-[18px] overflow-hidden font-black text-black">
           {city} , {district} , {address}
         </div>
-        <div>
-          <p className="text-black">Area: {area} ft</p>
-          <p className="text-black">BedRoom: {numberOfBedrooms}</p>
-          <p className="text-black">
-            <span className="font-semibold">{rentPrice}</span>$/night
-          </p>
-        </div>
+        <ul className="text-lg">
+          <li className="flex text-gray-500 font-medium">
+            {area}ft/{area * 0.09}sq.m
+          </li>
+          <li className="flex items-center text-gray-500 font-medium">
+            <MdOutlineBedroomParent className="mr-[7px]"/>
+            {numberOfBedrooms} Bedrooms
+          </li>
+          <li className="text-black">
+            <span className="font-semibold">{rentPrice}</span>$ / night
+          </li>
+        </ul>
       </div>
     </div>
   );
