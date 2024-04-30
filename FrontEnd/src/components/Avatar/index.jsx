@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 // import { useSelector } from "react-redux";
 import { logout } from "../../features/user/userSlice";
 import { useDispatch } from "react-redux";
+import ModalUser from "../ModalUser";
 
 // eslint-disable-next-line react/prop-types
 const Avatar = ({user}) => {
@@ -43,17 +44,21 @@ const Avatar = ({user}) => {
                     className="w-full rounded-[50%] transition-[transform,0.3s,ease] hover:scale-105 active:scale-100"
                   />
                 </summary>
-                <ul className="menu dropdown-content z-[1] bg-base-100 rounded-box w-24">
-                  <li>
-                    <Link>Account</Link>
+                <ul className="menu dropdown-content z-[1] rounded-box bg-base-300 w-28">
+                  <li className="mb-3">
+                    <ModalUser />
                   </li>
-                  <Button
-                    htmlType="submit"
-                    onClick={handleLogOut}
-                    className="bg-red-600 border-none text-white"
-                  >
-                    Logout
-                  </Button>
+                  <li>
+                    <Button
+                      htmlType="submit"
+                      onClick={handleLogOut}
+                      type="primary"
+                      danger
+                      className="border-none pl-[1.5rem] pb-[2rem] font-bold"
+                    >
+                      Logout
+                    </Button>
+                  </li>
                 </ul>
               </details>
             </div>
