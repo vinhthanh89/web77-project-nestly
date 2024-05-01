@@ -1,13 +1,14 @@
-
 import bcrypt from "bcryptjs";
-
 
 import cloudinary from "../configs/cloudinary.js";
 import User from "../models/user.model.js";
-import { changePasswordValidate, editUserValidate, signUpValidate } from "../validations/user.validate.js";
+import {
+  changePasswordValidate,
+  editUserValidate,
+  signUpValidate,
+} from "../validations/user.validate.js";
 import { validateData } from "../validations/validates.js";
 import { signAccessToken, signRefreshToken } from "../utils/jwtoken.js";
-
 
 //! Sign up
 export const signUp = async (req, res) => {
@@ -15,7 +16,10 @@ export const signUp = async (req, res) => {
     const { username, email, password, phone } = req.body;
     const avatar = req.file;
 
-    const validate = validateData({ username, email, password, phone }, signUpValidate);
+    const validate = validateData(
+      { username, email, password, phone },
+      signUpValidate
+    );
     if (validate) {
       if (avatar) {
         cloudinary.uploader.destroy(avatar.filename);
@@ -31,6 +35,7 @@ export const signUp = async (req, res) => {
       if (avatar) {
         cloudinary.uploader.destroy(avatar.filename);
       }
+
       return res.status(403).json({
         message: "Email người dùng đã tồn tại",
       });
@@ -42,7 +47,9 @@ export const signUp = async (req, res) => {
       username,
       email,
       password: hashPassword,
-      avatar: (avatar?.path || "https://res.cloudinary.com/du6uinlwy/image/upload/v1714406960/Nestly/Logo_white_fxhsab.png"),
+      avatar:
+        avatar?.path ||
+        "https://res.cloudinary.com/du6uinlwy/image/upload/v1714406960/Nestly/Logo_white_fxhsab.png",
       phone,
     });
 
@@ -52,14 +59,15 @@ export const signUp = async (req, res) => {
         username,
         email,
         phone,
-        avatar: (avatar?.path || ''),
+        avatar: avatar?.path || "",
       },
     });
   } catch (error) {
     console.log(error);
     if (avatar) {
-        cloudinary.uploader.destroy(avatar.filename);
-      }
+      cloudinary.uploader.destroy(avatar.filename);
+    }
+
     return res.status(500).json({
       message: error.message,
     });
@@ -72,7 +80,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     const findUser = await User.findOne({ email });
-    
+
     if (!findUser) {
       return res.status(403).json({
         message: "Email người dùng không tồn tại",
@@ -90,7 +98,7 @@ export const login = async (req, res) => {
       _id: findUser._id,
       email: findUser.email,
       role: findUser.role,
-    }
+    };
 
     const accessToken = signAccessToken(payload);
     const refreshToken = signRefreshToken(payload);
@@ -100,7 +108,7 @@ export const login = async (req, res) => {
       username: findUser.username,
       email: findUser.email,
       role: findUser.role,
-      avatar : findUser.avatar,
+      avatar: findUser.avatar,
       phone: findUser.phone,
     };
 
@@ -108,7 +116,7 @@ export const login = async (req, res) => {
       message: "Đăng nhập thành công",
       returnUser,
       accessToken,
-      refreshToken
+      refreshToken,
     });
   } catch (error) {
     console.log(error);
@@ -134,35 +142,37 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const getUserById = async(req,res) => {
+export const getUserById = async (req, res) => {
   try {
-    const userId = req.params.id
+    const userId = req.params.id;
 
-    const user = await User.findById(userId)
+    const user = await User.findById(userId);
 
     return res.status(200).json({
-      message : 'Lấy dữ liệu thành công',
-      user
-    })
-
+      message: "Lấy dữ liệu thành công",
+      user,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      message : error
-    })
+      message: error,
+    });
   }
-}
+};
 
 export const getPagingUser = async (req, res) => {
   try {
     const { pageSize, pageIndex } = req.query;
 
     const [user, totalDocument] = await Promise.all([
-      User.find().skip(pageSize * (pageIndex - 1)).limit(pageSize).sort({createAt : -1}),
-      User.countDocuments()
+      User.find()
+        .skip(pageSize * (pageIndex - 1))
+        .limit(pageSize)
+        .sort({ createAt: -1 }),
+      User.countDocuments(),
     ]);
 
-    const totalPage = Math.ceil(totalDocument / pageSize)
+    const totalPage = Math.ceil(totalDocument / pageSize);
 
     return res.status(200).json({
       message: "Lấy dữ liệu người dùng thành công",
@@ -177,102 +187,128 @@ export const getPagingUser = async (req, res) => {
   }
 };
 
-export const editUser = async (req , res) => {
-    try {
-        const userId = req.params.id
-        const {username , email , phone} = req.body
+export const editUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { username, email, phone } = req.body;
+    const avatar = req.file;
 
-        const findUser = await User.findById(userId)
-        if(!findUser){
-            return res.status(404).json({
-                message : "Không tìm thấy ID người dùng"
-            })
-        }
+    const findUser = await User.findById(userId);
+    if (!findUser) {
+      if (avatar) {
+        cloudinary.uploader.destroy(avatar.filename);
+      }
 
-        if(email !== findUser.email){
-          const checkEmailExits = await User.findOne({email})
-          if(checkEmailExits){
-              return res.status(401).json({
-                  message : "Email người dùng đã tồn tại"
-              })
-          }
-        }
-
-        const validate = validateData({username , email , phone}, editUserValidate)
-        if(validate){
-            return res.status(401).json({
-                message : validate
-            })
-        }
-
-        const userUpdated = await User.findByIdAndUpdate(findUser._id , {
-            username ,
-            email ,
-            phone,
-        }, {new : true})
-
-        return res.status(201).json({
-            message : "Cập nhật thông tin người dùng thành công",
-            userUpdated
-        })
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            message : error
-        })
+      return res.status(404).json({
+        message: "Không tìm thấy ID người dùng",
+      });
     }
-}
 
-export const changeUserPassword = async (req , res) => {
-    try {
-        const userId = req.params.id
-        const {oldPassword , newPassword , confirmNewPassword} = req.body
-
-        const findUser = await User.findById(userId)
-        if(!findUser){
-            return res.status(404).json({
-                message : "Không tìm thấy ID người dùng"
-            })
+    if (email !== findUser.email) {
+      const checkEmailExits = await User.findOne({ email });
+      if (checkEmailExits) {
+        if (avatar) {
+          cloudinary.uploader.destroy(avatar.filename);
         }
 
-        const comparePassword = bcrypt.compareSync(oldPassword , findUser.password)
-        if(!comparePassword){
-            return res.status(401).json({
-                message : "Mật khẩu người dùng không chính xác"
-            })
-        }
-
-        const validate = validateData({password : newPassword} , changePasswordValidate)
-        if(validate){
-            return res.status(401).json({
-                message : validate
-            })
-        }
-
-        if(newPassword !== confirmNewPassword){
-            return res.status(401).json({
-                message : "Xác nhận mật khẩu mới không trùng khớp"
-            })
-        }
-
-        const hashNewPassword = bcrypt.hashSync(newPassword , bcrypt.genSaltSync())
-
-        await User.findByIdAndUpdate(findUser._id , {
-            password :hashNewPassword
-        } , {new : true})
-
-        return res.status(201).json({
-            message : "Cập nhập mật khẩu người dùng thành công"
-        })
-
-
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            message : error
-        })
+        return res.status(401).json({
+          message: "Email người dùng đã tồn tại",
+        });
+      }
     }
-}
+
+    const validate = validateData({ username, email, phone }, editUserValidate);
+    if (validate) {
+      if (avatar) {
+        cloudinary.uploader.destroy(avatar.filename);
+      }
+
+      return res.status(401).json({
+        message: validate,
+      });
+    }
+
+    const userUpdated = await User.findByIdAndUpdate(
+      findUser._id,
+      {
+        username,
+        email,
+        phone,
+        avatar: avatar.path,
+      },
+      { new: true }
+    );
+
+    return res.status(201).json({
+      message: "Cập nhật thông tin người dùng thành công",
+      userUpdated,
+    });
+  } catch (error) {
+    if (avatar) {
+      cloudinary.uploader.destroy(avatar.filename);
+    }
+    console.log(error);
+    return res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+export const changeUserPassword = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { oldPassword, newPassword, confirmNewPassword } = req.body;
+
+    const findUser = await User.findById(userId);
+    if (!findUser) {
+      return res.status(404).json({
+        message: "Không tìm thấy ID người dùng",
+      });
+    }
+
+    const comparePassword = bcrypt.compareSync(oldPassword, findUser.password);
+    if (!comparePassword) {
+      return res.status(401).json({
+        message: "Mật khẩu người dùng không chính xác",
+      });
+    }
+
+    const validate = validateData(
+      { password: newPassword },
+      changePasswordValidate
+    );
+    if (validate) {
+      return res.status(401).json({
+        message: validate,
+      });
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      return res.status(401).json({
+        message: "Xác nhận mật khẩu mới không trùng khớp",
+      });
+    }
+
+    const hashNewPassword = bcrypt.hashSync(newPassword, bcrypt.genSaltSync());
+
+    await User.findByIdAndUpdate(
+      findUser._id,
+      {
+        password: hashNewPassword,
+      },
+      { new: true }
+    );
+
+    return res.status(201).json({
+      message: "Cập nhập mật khẩu người dùng thành công",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: error,
+    });
+  }
+};
 
 export const deleteUser = async (req, res) => {
   try {
@@ -298,26 +334,25 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-export const findUser = async (req , res) => {
+export const findUser = async (req, res) => {
   try {
-    const email = req.query.email
+    const email = req.query.email;
 
-    const findUser = await Room.findOne({email})
-    if(!findUser){
+    const findUser = await Room.findOne({ email });
+    if (!findUser) {
       return res.status(404).json({
-        message : "Email người dùng không tồn tại"
-      })
+        message: "Email người dùng không tồn tại",
+      });
     }
 
     return res.status(200).json({
-      message : "Tìm thấy email người dùng thành công",
-      findUser
-    })
-
+      message: "Tìm thấy email người dùng thành công",
+      findUser,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      message : error
-    })
+      message: error,
+    });
   }
-}
+};

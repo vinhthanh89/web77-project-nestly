@@ -1,106 +1,181 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import Header from "./../../components/Header/index";
+
+import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { MdOutlineBedroomParent , MdOutlinePets } from "react-icons/md";
+import { DatePicker } from "antd";
+import { FaShower } from "react-icons/fa";
+import moment from 'moment/moment'
+
 import Footer from "../../components/Footer";
-import { fetchRoomData } from './../../services/room';
+import Header from "./../../components/Header/index";
+import { fetchRoomById } from "../../services/room";
+import { calcBookingNights } from "../../utils/calcBookingNights";
+
+const { RangePicker } = DatePicker;
+
 
 const CardDetails = () => {
-  const { id } = useParams();
-  const [roomDetail, setRoomDetail] = useState(null);
+  const [roomDetail, setRoomDetail] = useState([]);
+  const [bookingDate, setBookingDate] = useState([]);
+
+  const urlParm = useParams();
 
   useEffect(() => {
-    const getRoomDetail = async () => {
+    const fetchRoom = async () => {
       try {
-        // Gọi API để lấy thông tin chi tiết của phòng dựa trên id
-        const response = await fetchRoomData(id);
-        setRoomDetail(response.data);
+        const response = await fetchRoomById(urlParm.id);
+        console.log(response.data.findRoom);
+        setRoomDetail(response.data.findRoom);
       } catch (error) {
         console.log(error);
       }
     };
 
-    getRoomDetail();
-  }, [id]);
+    fetchRoom();
+  }, [urlParm.id]);
 
-  if (!roomDetail) {
-    return <div>Loading...</div>;
-  }
+  const {
+    city,
+    district,
+    address,
+    rentPrice,
+    images,
+    description,
+    numberOfBedrooms,
+  } = roomDetail;
+
+  const disabledDate = (current) => {
+    if (current && current.valueOf() < Date.now()) {
+      return true;
+    }
+  };
+
+  const handleBookingDate = (value) => {
+    const pickDate = value.map((item) => {
+      return moment(item.$d).format("MM-DD-YYYY");
+    });
+    setBookingDate(pickDate);
+  };
+
+  const totalNight = bookingDate.length == 0 ? 0 : calcBookingNights(bookingDate[0] , bookingDate[1])
+  const totalPrice = totalNight * rentPrice;
+  const serviceCharge = rentPrice * 0.05;
+
 
   return (
     <>
       <Header />
-      <div className="w-f mx-auto bg-white rounded-xl overflow-hidden shadow-md text-black">
-        <div className="pl-[150px] pr-[150px] m-10">
-          {/* img */}
-          <div className=" flex w-full ">
-            <div className="w-1/2 h-[550px] mr-2">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAaLK8D2uKRXlYSNU7oKuaLAjW7k8rKAVRALfB7zqWjw&s"
-                alt="Hình ảnh"
-                className="h-full rounded-tl-xl rounded-bl-xl "
-              ></img>
-            </div>
-            <div className=" w-1/2 h-[550px] ml-2">
-              <div className="h-full grid grid-cols-2 ">
-                <div className="grid grid-cols-1 pr-2">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAaLK8D2uKRXlYSNU7oKuaLAjW7k8rKAVRALfB7zqWjw&s"
-                    alt="Hình ảnh"
-                    className="h-full w-full pb-2"
-                  ></img>
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAaLK8D2uKRXlYSNU7oKuaLAjW7k8rKAVRALfB7zqWjw&s"
-                    alt="Hình ảnh"
-                    className="h-full w-full pt-2"
-                  ></img>
+
+      <div className="mt-[20px] mb-[50px] h-auto">
+        <div className="px-[70px]">
+          <div className="text-[30px] text-[#222] font-bold mb-[20px]">
+            <p>
+              {city} , {district} , {address}
+            </p>
+          </div>
+          {/* image */}
+          <div className="w-full h-[300px] grid grid-rows-2 grid-cols-4 gap-[10px] rounded-[15px] overflow-hidden">
+            <img
+              className="w-full h-full object-cover row-span-2 col-span-2 "
+              src={images ? images[0] : ""}
+              alt="Hình ảnh"
+            />
+            <img
+              className="w-full h-full object-cover row-span-1 col-span-2"
+              src={images ? images[1] : ""}
+              alt="Hình ảnh"
+            />
+            <img
+              className="w-full h-full object-cover row-span-1 col-span-1"
+              src={images ? images[2] : ""}
+              alt="Hình ảnh"
+            />
+            <img
+              className="w-full h-full object-cover row-span-1 col-span-1"
+              src={images ? images[1] : ""}
+              alt="Hình ảnh"
+            />
+          </div>
+
+          <div className="flex justify-between gap-x-[10px] mt-[30px]">
+            <div className="w-[52%]">
+              <p className="text-2xl font-semibold mb-[10px]">{description} </p>
+              <div className="flex items-center gap-x-[8px] mb-[5px]">
+                <div className="inline-block w-[40px] h-[40px] p-[7px] bg-[gray] bg-opacity-70 rounded-[50%]">
+                  <MdOutlineBedroomParent className="text-[25px] " />
                 </div>
-                <div className="grid grid-cols-1 pl-2">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAaLK8D2uKRXlYSNU7oKuaLAjW7k8rKAVRALfB7zqWjw&s"
-                    alt="Hình ảnh"
-                    className="h-full w-full pb-2 rounded-tr-xl"
-                  ></img>
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAaLK8D2uKRXlYSNU7oKuaLAjW7k8rKAVRALfB7zqWjw&s"
-                    alt="Hình ảnh"
-                    className="h-full w-full pt-2 rounded-br-xl"
-                  ></img>
-                </div>
+                  <span className="text-[16px] font-bold">Bedrooms : {numberOfBedrooms}</span>
               </div>
-              {/* <p className="h-full rounded-xl bg-gray-600"></p> */}
+              <div className="flex items-center gap-x-[8px] mb-[5px]">
+                <div className="inline-block w-[40px] h-[40px] p-[7px] bg-[gray] bg-opacity-70 rounded-[50%] ">
+                  <FaShower className="text-[25px] " />
+
+
+                  <span className="text-[16px] font-bold">closed bathroom</span>
+              </div>
+              <div className="flex items-center gap-x-[8px]">
+                <div className="inline-block w-[40px] h-[40px] p-[7px] bg-[gray] bg-opacity-70 rounded-[50%] ">
+                  <MdOutlinePets className="text-[25px] " />
+                </div>
+                  <span className="text-[16px] font-bold">pets allowed</span>
+              </div>
+
+
+              <p className="pt-3 font-semibold text-xl">Chủ nhà:</p>
+              <p className="text-gray-400">
+                Chủ nhà chất lượng, 10 năm kinh nghiệm đón tiếp khách
+              </p>
+              <div className="mt-[10px] bg-[lightgray] h-auto">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe
+                aspernatur cumque qui id repellat illum officia enim nostrum
+                porro fugiat ipsum labore sint consequuntur cum perspiciatis,
+                dolorum quidem! Mollitia, libero!
+              </div>
+
+
             </div>
           </div>
 
           <div className="flex mt-4">
             <div className="truncate overflow-ellipsis w-8/12 ">
-              <p className="text-2xl font-semibold">Địa điểm nghỉ dưỡng tại </p>
-              <p>Bedrooms: 6</p>
-              <p className="pt-3 font-semibold text-xl">Chủ nhà:</p>
-              <p className="text-gray-400">
-                Chủ nhà chất lượng, 10 năm kinh nghiệm đón tiếp khách
-              </p>
-              <p className="mt-6 bg-gray-200 inline-block p-4 rounded-lg">
-                description
-              </p>
+
               <h3 className="pt-10 text-lg font-semibold">
                 Chi tiết nơi bạn sẽ nghỉ dưỡng
               </h3>
             </div>
 
-            <div className="w-4/12">
-              <div className="bg-gray-200 border-5 border-black rounded-lg shadow-xl p-6 w-full h-full">
+            <div className="w-[33%]">
+              <div className="bg-gray-200 border-5 border-black rounded-lg shadow-xl px-6 pt-[25px] pb-[35px] w-full h-auto">
                 <div className="flex w-full h-auto">
-                  <p className="font-semibold text-2xl">$168</p>
-                  <p className="mt-[7px]">/đêm</p>
+
+                  <p className="font-semibold text-2xl">${rentPrice}</p>
+                  <p className="mt-[7px]"> /night</p>
                 </div>
-                <div className="mt-3">ngày nhận phòng / ngày trả phòng</div>
-                <p className="mt-3 font-semibold text-2xl flex items-center justify-center">
-                  Tổng: $168
-                </p>
-                <button className="mt-6 bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 w-full rounded-lg transition duration-300 ease-in-out">
-                  Đặt phòng
+                <div className="mt-3 w-full">
+                <RangePicker
+                className="w-full"
+                disabledDate={disabledDate}
+                onChange={handleBookingDate}
+                 />
+                </div>
+
+                <button className="mt-6 bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 w-full rounded-lg transition duration-300 ease-in-out mb-[20px]">
+                  Booking
                 </button>
+                <div className="w-full mt-[10px] text-[18px] font-medium">
+                  <span>Total Price &#40; {totalNight} night &#41; :</span>
+                  <span className="float-right">${totalPrice}</span>
+                </div>
+                <div className="w-full mt-[10px] text-[18px] font-medium">
+                  <span>Service Charge :</span>
+                  <span className="float-right">${serviceCharge}</span>
+                </div>
+                <div className="w-full h-[1px] mt-[10px] border-solid border-[gray] border-[1px]"></div>
+                <div className="w-full mt-[10px] text-[20px] font-bold">
+                  <span>Total :</span>
+                  <span className="float-right">${totalPrice + serviceCharge}</span>
+                </div>
+
               </div>
             </div>
           </div>

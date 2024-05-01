@@ -9,3 +9,7 @@ export const fetchRoomData = async (filter) => {
 export const fetchCityOptions = async () => {
     return axiosInstance.get('/room/get-city-options')
 }
+
+export const fetchRoomById = async (roomId) => {
+    return axiosInstance.get(`/room/get-room/${roomId}`)
+}

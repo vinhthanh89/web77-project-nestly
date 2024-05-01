@@ -1,16 +1,25 @@
+import { MdOutlineBedroomParent } from "react-icons/md";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+
 import { Link, useNavigate } from "react-router-dom";
-import { MdOutlineBedroomParent } from "react-icons/md";
+
 import { CiRuler } from "react-icons/ci";
+
 import "./style.css";
 
 // eslint-disable-next-line react/prop-types
 const RoomCard = ({ props }) => {
   // eslint-disable-next-line react/prop-types
-  const { city, district, address, area, numberOfBedrooms, rentPrice, images } =
-    props;
+  const { city, district, address, area, numberOfBedrooms, rentPrice, images ,_id } = props;
+
+    const navigate = useNavigate();
+
+    const handleCardDetails = () => {
+      navigate(`/home/${_id}`);
+    };
 
   const settings = {
     infinite: true,
@@ -23,7 +32,7 @@ const RoomCard = ({ props }) => {
   // eslint-disable-next-line react/prop-types
   const renderImages = images.map((image) => {
     return (
-      <div key={image}>
+      <div key={image} onClick={handleCardDetails}>
         <img
           className="w-full h-[15rem] rounded-[12px] cursor-pointer"
           src={image}
@@ -32,38 +41,32 @@ const RoomCard = ({ props }) => {
     );
   });
 
-  const navigate = useNavigate();
-  const handleCardDetails = () => {
-    navigate(`/card-detail`);
-  };
-
   return (
-    <div onClick={handleCardDetails}>
-      <div className="h-[28rem] flex flex-col gap-y-[0.5rem]">
-        <div>
+      <div  className="h-[28rem] flex flex-col gap-y-[0.5rem]">
+        <div >
           <Slider {...settings}>{renderImages}</Slider>
         </div>
-        <Link to={`/card-list/${props._id}`}>{props.title}</Link>
         <div className="h-[110px] flex flex-col justify-evenly">
-          <div className="text-ellipsis w-full whitespace-nowrap text-[18px] overflow-hidden font-black text-black">
-            {city}, {district}, {address}
+          <div  onClick={handleCardDetails} className="text-ellipsis w-full whitespace-nowrap text-[18px] overflow-hidden font-black text-black cursor-pointer hover:opacity-60">
+            {city} , {district} , {address}
           </div>
-          <ul className="flex gap-[0.5rem] text-sm">
-            <li className="flex items-center text-gray-500 font-medium gap-1">
-              <MdOutlineBedroomParent />
-              {numberOfBedrooms} Bedrooms
-            </li>
-            <li className="flex items-center text-gray-500 font-medium gap-1">
-              <CiRuler />
+          <ul className="text-lg">
+            <li className="flex text-gray-500 font-medium gap-1">
+                  <CiRuler />
               {area}ft/{area * 0.09}sq.m
             </li>
+            <li className="flex items-center text-gray-500 font-medium gap-1">
+              <MdOutlineBedroomParent className="mr-[7px]" />
+              {numberOfBedrooms} Bedrooms
+            </li>
+            <li className="text-black">
+              <span className="font-semibold">{rentPrice}</span>$ / night
+            </li>
           </ul>
-          <p className="text-black text-xl">
-            <span className="font-semibold">{rentPrice}</span>$ / night
-          </p>
         </div>
       </div>
-    </div>
+
+
   );
 };
 
