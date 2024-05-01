@@ -1,0 +1,69 @@
+.card-detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .image-carousel {
+    margin-bottom: 20px;
+  }
+  
+  .image-carousel img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .room-info p {
+    margin-bottom: 10px;
+  }
+  
+  .description h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .amenities h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .amenities ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .amenities li {
+    margin-bottom: 5px;
+  }
+  
+  .reviews h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .book-button {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #ff5a5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .loading {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+  }
+  

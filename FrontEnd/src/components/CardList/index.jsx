@@ -30,10 +30,11 @@ const CardList = () => {
     fetchData();
   }, [queryValue]);
 
+
   //! Data
   const renderData = roomData.map((item) => {
     return (
-      <div key={item._id}>
+      <div key={item._id} >
         <RoomCard props={item} />
       </div>
     );
