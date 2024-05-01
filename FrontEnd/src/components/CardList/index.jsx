@@ -95,7 +95,7 @@ const CardList = () => {
     <>
       <div className="card-list w-full flex px-[2rem] py-[2rem] gap-[10px] bg-white">
         {/* filter */}
-        <div className="w-[20%] h-[screen] border-solid border-[2px] border-[lightgray] px-[1rem] pt-[1rem] rounded-[10px] max-md:hidden">
+        <div className="w-[27%] h-[screen] border-solid border-[2px] border-[lightgray] px-[1rem] pt-[1rem] rounded-[10px] max-md:hidden">
           <div>
             <span className="mr-[1rem]">Sort By</span>
             <Select
@@ -127,7 +127,7 @@ const CardList = () => {
             />
           </div>
         </div>
-        <div className="w-[80%]">
+        <div className="w-[80%] max-md:w-full">
           <div className="float-right mb-[15px] hidden max-md:block">
             <Select
               className="input_select mr-[10px]"
@@ -199,7 +199,7 @@ const CardList = () => {
               ]}
             />
           </div>
-          <div className="grid grid-cols-auto-fit-240 items-center gap-[10px]">
+          <div className="w-full grid grid-cols-auto-fit-240 items-center gap-[10px]">
             {renderData}
           </div>
         </div>

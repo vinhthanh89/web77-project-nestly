@@ -3,7 +3,6 @@ import {
   getUserFromLocalStorage,
   removeTokenFromLocalStorage,
   removeUserFromLocalStorage,
-  saveUserToLocalStorage,
 } from "../../utils/localstorage";
 
 //! State ban đầu
@@ -24,14 +23,19 @@ export const userSlice = createSlice({
       //! Sau khi đăng nhập, ta cập nhật data như sau
     },
     
-    logout: (state, action) => {
+    logout: (state) => {
       state.user = {};
       removeUserFromLocalStorage();
       removeTokenFromLocalStorage();
     },
+
+    edit: (state , action) => {
+      state.user = action.payload.user
+      console.log(state , action.payload);
+    }
   },
 });
 
 //! Export login theo dạng như sau
-export const { login, logout } = userSlice.actions;
+export const { login, logout , edit } = userSlice.actions;
 export default userSlice.reducer;

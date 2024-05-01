@@ -1,14 +1,13 @@
-import { Link } from "react-router-dom";
-import "../Login/index.css";
-import { BiSolidUser, BiSolidLockAlt } from "react-icons/bi";
-import { BsArrowLeftShort } from "react-icons/bs";
-import { HiMail } from "react-icons/hi";
-import { FaPhone } from "react-icons/fa";
-import { Form, Button, Input } from "antd";
-import { signUp } from "../../services/user";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Button, Form, Input } from "antd";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { BiSolidUser } from "react-icons/bi";
+import { BsArrowLeftShort } from "react-icons/bs";
+import { FaPhone } from "react-icons/fa";
+import { HiMail } from "react-icons/hi";
+import { Link, useNavigate } from "react-router-dom";
+import { signUp } from "../../services/user";
+import "../Login/index.css";
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -68,9 +67,8 @@ const SignUp = () => {
           </div>
           <div className="relative mb-4">
             <Form.Item name="password">
-              <Input type="password" placeholder="Password" />
+              <Input.Password type="password" placeholder="Password" />
             </Form.Item>
-            <BiSolidLockAlt className="absolute right-4 top-4" />
           </div>
           <div className="relative mb-4">
             <Form.Item name="phone">
