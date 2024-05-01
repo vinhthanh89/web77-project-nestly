@@ -21,7 +21,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/card-detail" element={<CardDetails/>} />
+        <Route path="/card-detail" element={<CardDetails />} />
         {isObjectEmpty(user) ? (
           <Route path="" element={<NonAuthLayout />}>
             <Route path="/" element={<LandingPage />} />
