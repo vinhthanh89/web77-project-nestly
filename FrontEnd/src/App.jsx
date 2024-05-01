@@ -10,6 +10,7 @@ import Home from "./pages/Home/index.jsx";
 import SignUp from "./pages/SignUp/index.jsx";
 import Login from "./pages/Login";
 import CardDetails from "./pages/CardDetails";
+import Dashboard from "./pages/Dashboard/index.jsx";
 function App() {
   const user = useSelector((state) => state.users.user);
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/card-detail" element={<CardDetails />} />
+        <Route path="/authlayout" element={<AuthLayout/>}/> 
         {isObjectEmpty(user) ? (
           <Route path="" element={<NonAuthLayout />}>
             <Route path="/" element={<LandingPage />} />
@@ -31,6 +33,7 @@ function App() {
         ) : (
           <Route path="/" element={<AuthLayout />}>
             <Route path="/home" element={<Home />} />
+            
             
           </Route>
         )}
