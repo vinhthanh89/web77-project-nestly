@@ -10,7 +10,6 @@ import Home from "./pages/Home/index.jsx";
 import SignUp from "./pages/SignUp/index.jsx";
 import Login from "./pages/Login";
 import CardDetails from "./pages/CardDetails";
-import Admin from "./pages/Admin/index.jsx";
 function App() {
   const user = useSelector((state) => state.users.user);
 
