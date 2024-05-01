@@ -95,7 +95,7 @@ const CardList = () => {
     <>
       <div className="card-list w-full flex px-[2rem] py-[2rem] gap-[10px] bg-white">
         {/* filter */}
-        <div className="w-[27%] h-[screen] border-solid border-[2px] border-[lightgray] px-[1rem] pt-[1rem] rounded-[10px] max-md:hidden">
+        <div className="w-[18%] h-[screen] border-solid border-[2px] border-[lightgray] px-[1rem] pt-[1rem] rounded-[8px] max-md:hidden">
           <div>
             <span className="mr-[1rem]">Sort By</span>
             <Select
