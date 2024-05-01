@@ -1,3 +1,4 @@
+
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { MdOutlineBedroomParent , MdOutlinePets } from "react-icons/md";
@@ -29,6 +30,7 @@ const CardDetails = () => {
         console.log(error);
       }
     };
+
     fetchRoom();
   }, [urlParm.id]);
 
@@ -59,9 +61,11 @@ const CardDetails = () => {
   const totalPrice = totalNight * rentPrice;
   const serviceCharge = rentPrice * 0.05;
 
+
   return (
     <>
       <Header />
+
       <div className="mt-[20px] mb-[50px] h-auto">
         <div className="px-[70px]">
           <div className="text-[30px] text-[#222] font-bold mb-[20px]">
@@ -105,7 +109,8 @@ const CardDetails = () => {
               <div className="flex items-center gap-x-[8px] mb-[5px]">
                 <div className="inline-block w-[40px] h-[40px] p-[7px] bg-[gray] bg-opacity-70 rounded-[50%] ">
                   <FaShower className="text-[25px] " />
-                </div>
+
+
                   <span className="text-[16px] font-bold">closed bathroom</span>
               </div>
               <div className="flex items-center gap-x-[8px]">
@@ -114,6 +119,7 @@ const CardDetails = () => {
                 </div>
                   <span className="text-[16px] font-bold">pets allowed</span>
               </div>
+
 
               <p className="pt-3 font-semibold text-xl">Chủ nhà:</p>
               <p className="text-gray-400">
@@ -125,6 +131,14 @@ const CardDetails = () => {
                 porro fugiat ipsum labore sint consequuntur cum perspiciatis,
                 dolorum quidem! Mollitia, libero!
               </div>
+
+
+            </div>
+          </div>
+
+          <div className="flex mt-4">
+            <div className="truncate overflow-ellipsis w-8/12 ">
+
               <h3 className="pt-10 text-lg font-semibold">
                 Chi tiết nơi bạn sẽ nghỉ dưỡng
               </h3>
@@ -133,6 +147,7 @@ const CardDetails = () => {
             <div className="w-[33%]">
               <div className="bg-gray-200 border-5 border-black rounded-lg shadow-xl px-6 pt-[25px] pb-[35px] w-full h-auto">
                 <div className="flex w-full h-auto">
+
                   <p className="font-semibold text-2xl">${rentPrice}</p>
                   <p className="mt-[7px]"> /night</p>
                 </div>
@@ -160,12 +175,12 @@ const CardDetails = () => {
                   <span>Total :</span>
                   <span className="float-right">${totalPrice + serviceCharge}</span>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );

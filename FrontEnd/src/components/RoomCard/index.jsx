@@ -1,16 +1,19 @@
 import { MdOutlineBedroomParent } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+
+import { Link, useNavigate } from "react-router-dom";
+
+import { CiRuler } from "react-icons/ci";
 
 import "./style.css";
 
 // eslint-disable-next-line react/prop-types
 const RoomCard = ({ props }) => {
   // eslint-disable-next-line react/prop-types
-  const { city, district, address, area, numberOfBedrooms, rentPrice, images ,_id } =
-    props;
+  const { city, district, address, area, numberOfBedrooms, rentPrice, images ,_id } = props;
 
     const navigate = useNavigate();
 
@@ -31,7 +34,7 @@ const RoomCard = ({ props }) => {
     return (
       <div key={image} onClick={handleCardDetails}>
         <img
-          className="w-full h-[16rem] rounded-[12px] cursor-pointer"
+          className="w-full h-[15rem] rounded-[12px] cursor-pointer"
           src={image}
         />
       </div>
@@ -48,10 +51,11 @@ const RoomCard = ({ props }) => {
             {city} , {district} , {address}
           </div>
           <ul className="text-lg">
-            <li className="flex text-gray-500 font-medium">
+            <li className="flex text-gray-500 font-medium gap-1">
+                  <CiRuler />
               {area}ft/{area * 0.09}sq.m
             </li>
-            <li className="flex items-center text-gray-500 font-medium">
+            <li className="flex items-center text-gray-500 font-medium gap-1">
               <MdOutlineBedroomParent className="mr-[7px]" />
               {numberOfBedrooms} Bedrooms
             </li>
@@ -61,6 +65,8 @@ const RoomCard = ({ props }) => {
           </ul>
         </div>
       </div>
+
+
   );
 };
 
