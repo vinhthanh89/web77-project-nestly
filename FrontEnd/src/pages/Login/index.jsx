@@ -2,19 +2,18 @@
 import { Button, Form, Input } from "antd";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { BiSolidLockAlt } from "react-icons/bi";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { HiMail } from "react-icons/hi";
 import { Link, useNavigate } from "react-router-dom";
+import { login as loginAction } from "../../features/user/userSlice.js";
 import { login } from "../../services/user";
 import "./index.css";
-import { login as loginAction } from "../../features/user/userSlice.js";
 // import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   saveTokenToLocalStorage,
   saveUserToLocalStorage
 } from "../../utils/localstorage";
-import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -68,9 +67,8 @@ const Login = () => {
           </div>
           <div className="relative mb-4">
             <Form.Item name="password">
-              <Input type="password" placeholder="Password" />
+              <Input.Password type="password" placeholder="Password" />
             </Form.Item>
-            <BiSolidLockAlt className="absolute right-4 top-4" />
           </div>
         </div>
         <Form.Item className="btn-holder flex justify-center w-full mt-5 mb-5">

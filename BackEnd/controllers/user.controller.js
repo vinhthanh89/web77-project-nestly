@@ -42,7 +42,7 @@ export const signUp = async (req, res) => {
       username,
       email,
       password: hashPassword,
-      avatar: (avatar?.path || ''),
+      avatar: (avatar?.path || "https://res.cloudinary.com/du6uinlwy/image/upload/v1714406960/Nestly/Logo_white_fxhsab.png"),
       phone,
     });
 
@@ -133,6 +133,25 @@ export const getUser = async (req, res) => {
     });
   }
 };
+
+export const getUserById = async(req,res) => {
+  try {
+    const userId = req.params.id
+
+    const user = await User.findById(userId)
+
+    return res.status(200).json({
+      message : 'Lấy dữ liệu thành công',
+      user
+    })
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message : error
+    })
+  }
+}
 
 export const getPagingUser = async (req, res) => {
   try {

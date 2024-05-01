@@ -1,12 +1,12 @@
 //! Dùng để chứa những hàm liên quan đến user
-import { axiosInstance } from "./index.js";
+import { axiosInstance, axiosInstanceAuth } from "./index.js";
 
 
-const login = ({ email, password }) => {
+export const login = ({ email, password }) => {
   return axiosInstance.post("/user/login", { email, password }); //! Nó sẽ đi vào body
 };
 
-const signUp = ({ username, email, password, phone }) => {
+export const signUp = ({ username, email, password, phone }) => {
   return axiosInstance.post("/user/sign-up", {
     username,
     phone,
@@ -15,8 +15,16 @@ const signUp = ({ username, email, password, phone }) => {
   });
 };
 
-const refreshAccessToken = () => {
+export const getUserById = (userId) => {
+  return axiosInstanceAuth.get(`/user/get-user-by-id/${userId}`);
+};
+
+export const editUser = (userId , data) => {
+  return axiosInstanceAuth.put(`/user/edit/${userId}` , data)
+}
+
+export const refreshAccessToken = () => {
   return axiosInstance.get('/user/refresh-accesstoken')
 }
 
-export { login, signUp , refreshAccessToken};
+

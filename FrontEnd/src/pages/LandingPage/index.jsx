@@ -25,9 +25,9 @@ const LandingPage = () => {
             {/* Button */}
             <div className="btn-holder w-full flex justify-center mt-8 opacity-95">
               <button onClick={() => nagative('/home')} className="skeleton btn md:btn-md text-white hover:opacity-100">
-                <FaLongArrowAltRight className="text-black" />
+                <FaLongArrowAltRight/>
                 <Link >
-                  <p className="pb-1 text-black neon_2">Try Nestly now!</p>
+                  <p className="pb-1">Try Nestly now!</p>
                 </Link>
               </button>
             </div>

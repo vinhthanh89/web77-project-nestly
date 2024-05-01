@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from './../../components/Header/index';
 import Footer from '../../components/Footer';
-import { fetchRoomData } from '../../services/room';
+
+
 
 const CardDetails = () => {
   const { id } = useParams();
@@ -29,6 +30,7 @@ const CardDetails = () => {
 
 
   return (
+
 
     <>
       <Header />
@@ -92,7 +94,13 @@ const CardDetails = () => {
         </div>
 
       </div>
+
       <Footer />
+    </>
+
+
+      
+
     </>
 
   );
