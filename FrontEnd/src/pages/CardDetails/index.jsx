@@ -170,6 +170,7 @@ const CardDetails = () => {
         </div>
       </div>
       <Footer />
+      
     </>
   );
 };
