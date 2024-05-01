@@ -30,7 +30,6 @@ const CardList = () => {
     fetchData();
   }, [queryValue]);
 
-
   //! Data
   const renderData = roomData.map((item) => {
     return (
@@ -94,9 +93,9 @@ const CardList = () => {
 
   return (
     <>
-      <div className="card-list w-full flex px-[2rem] py-[2rem] gap-[10px] bg-white">
+      <div className="card-list w-full flex px-[2rem] py-[2rem] gap-x-[15px] bg-white">
         {/* filter */}
-        <div className="w-[18%] h-[screen] border-solid border-[2px] border-[lightgray] px-[1rem] pt-[1rem] rounded-[8px] max-md:hidden">
+        <div className="w-[21%] h-[screen] border-solid border-[2px] border-[lightgray] px-[1rem] pt-[1rem] rounded-[8px] max-md:hidden">
           <div>
             <span className="mr-[1rem]">Sort By</span>
             <Select
