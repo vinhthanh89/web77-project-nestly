@@ -108,6 +108,7 @@ export const getPagingRooms = async (req , res) => {
         return res.status(200).json({
             message : "Lấy dữ liệu thành công",
             room ,
+            totalDocument ,
             totalPage
         })
 

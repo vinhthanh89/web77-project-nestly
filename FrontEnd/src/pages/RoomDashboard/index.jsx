@@ -1,12 +1,18 @@
 import { Pagination, Popconfirm, Table } from "antd";
 import { useEffect, useState } from "react";
 import { MdDelete, MdOutlineBedroomParent } from "react-icons/md";
-import { getRoomData } from "../../services/room";
+import { getPagingRoomData, getRoomData } from "../../services/room";
 import toast from "react-hot-toast";
 import { deleteUser } from "../../services/user";
 
 const RoomDashboard = () => {
   const [dataRoom, setDataRoom] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const [pageSize, setPageSize] = useState(10);
+  const [pageIndex, setPageIndex] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalDoc, setTotalDoc] = useState(0);
 
   const handleDeleteRoom = async (roomId) => {
     try {
@@ -19,18 +25,36 @@ const RoomDashboard = () => {
     }
   };
 
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //       try {
+  //         const response = await getRoomData();
+  //         setDataRoom(response.data.rooms);
+  //         console.log(response);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     };
+  //     fetchData();
+  //   }, []);
+
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchPagingData = async () => {
       try {
-        const response = await getRoomData();
-        setDataRoom(response.data.rooms);
+        setLoading(true);
+        const response = await getPagingRoomData({ pageSize, pageIndex });
         console.log(response);
+        setDataRoom(response.data.room);
+        setTotalPages(response.data.totalPage);
+        setTotalDoc(response.data.totalDocument);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchData();
-  }, []);
+    fetchPagingData();
+  }, [pageIndex, pageSize]);
 
   const columns = [
     {
@@ -117,14 +141,14 @@ const RoomDashboard = () => {
       <Table columns={columns} dataSource={dataRoom} pagination={false} />
       <Pagination
         defaultCurrent={1}
-        //   current={pageIndex}
-        //   total={totalDoc}
-        //   pageSize={pageSize}
+          current={pageIndex}
+          total={totalDoc}
+          pageSize={pageSize}
         showSizeChanger
-        //   onChange={(pageIndex, pageSize) => {
-        //     setPageSize(pageSize);
-        //     setPageIndex(pageIndex);
-        //   }}
+          onChange={(pageIndex, pageSize) => {
+            setPageSize(pageSize);
+            setPageIndex(pageIndex);
+          }}
       />
     </div>
   );
