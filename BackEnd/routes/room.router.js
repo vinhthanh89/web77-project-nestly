@@ -17,7 +17,5 @@ router.get("/get-rooms", getRooms);
 router.get('/get-room/:id' , getRoomById)
 router.get('/get-city-options' , getCityOptions)
 router.get("/get-paging-rooms", getPagingRooms);
-router.get("/filterByCity", filterRoomByCity);
-router.get("/filterByType", filterRoomsByType);
 
 export default router;
