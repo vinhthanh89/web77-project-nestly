@@ -19,8 +19,8 @@ export const getUserById = (userId) => {
   return axiosInstanceAuth.get(`/user/get-user-by-id/${userId}`);
 };
 
-export const editUser = (userId , data) => {
-  return axiosInstanceAuth.put(`/user/edit/${userId}` , data)
+export const editUser = (userId , formData ) => {
+  return axiosInstanceAuth.put(`/user/edit/${userId}` , formData )
 }
 
 export const refreshAccessToken = () => {
