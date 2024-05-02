@@ -1,69 +1,123 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  HomeOutlined,
   UserOutlined,
-} from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, Input, Button, Avatar, theme } from 'antd';
-import { Outlet } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../features/user/userSlice';
+} from "@ant-design/icons";
+import { Breadcrumb, Layout, Menu, Input, Button, Avatar, theme } from "antd";
+import { Outlet, useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 import { FaSearch } from "react-icons/fa";
+import { MdLogout, MdOutlineBedroomParent } from "react-icons/md";
+import "./style.css";
+
+import { logout } from "../../features/user/userSlice";
+import UserDashboard from "../../pages/UserDashboard";
+import RoomDashboard from "../../pages/RoomDashboard";
+
 const { Header, Content, Footer, Sider } = Layout;
 const { Search } = Input;
 
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
-
-const items = [
-
-  getItem('User', 'sub1', <UserOutlined />),
-  getItem('Room', 'sub2', <HomeOutlined />),
-];
-
 const AuthLayout = () => {
-  const dispatch = useDispatch()
+  const [dashBoard, setDashBoard] = useState("user");
+
+  const handleLogOutAdmin = () => {
+    dispatch(logout());
+    navigate("/");
+  };
+
+  function getItem(label, key, icon, children) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    };
+  }
+
+  const items = [
+    getItem(
+      "User",
+      "sub1",
+      <Button ghost onClick={() => setDashBoard('user')}>
+        <UserOutlined />
+      </Button>
+    ),
+    getItem(
+      "Room",
+      "sub2",
+      <div onClick={() => setDashBoard("room")}>
+        <Button ghost>
+        <MdOutlineBedroomParent />
+        </Button>
+      </div>
+    ),
+    getItem(
+      "Logout",
+      "sub3",
+      <div onClick={handleLogOutAdmin}>
+        <Button ghost>
+          <MdLogout />
+        </Button>
+      </div>
+    ),
+  ];
+
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div className='m-5'>
-          <img className='rounded-xl ' src="https://www.adobe.com/content/dam/cc/us/en/creativecloud/design/discover/mascot-logo-design/mascot-logo-design_fb-img_1200x800.jpg"></img>
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+      >
+        <div className="m-5">
+          <img
+            className="rounded-xl "
+            src="https://res.cloudinary.com/du6uinlwy/image/upload/v1714406960/Nestly/Logo_white_fxhsab.png"
+          />
         </div>
-        <Menu className="mt-10" theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+        <Menu
+          className="mt-10"
+          theme="dark"
+          defaultSelectedKeys={["1"]}
+          mode="inline"
+          items={items}
+        />
       </Sider>
+
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer, display: 'flex', alignItems: 'center', justifyContent: 'space-between',height:'130px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '30px', }}>
+        {dashBoard == "user" && <UserDashboard />}
+        {dashBoard == "room" && <RoomDashboard />}
+        {/* <Header
+          style={{
+            padding: 0,
+            background: colorBgContainer,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: "130px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginLeft: "30px",
+            }}
+          >
             <Input
               placeholder="Search..."
               prefix={<FaSearch />}
-              style={{ paddingLeft: '20px' }}
+              style={{ paddingLeft: "20px" }}
             />
-
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
-            <Avatar style={{ marginRight: '10px' }} />
-            <Button type="text" onClick={() => { dispatch(logout()) }}>Logout</Button>
-          </div>
-        </Header>
-        <Outlet />
-        <Footer style={{ textAlign: 'center' }}>
-
-        </Footer>
+        </Header> */}
+        <Footer style={{ textAlign: "center" }}></Footer>
       </Layout>
     </Layout>
   );

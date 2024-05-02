@@ -9,6 +9,7 @@ import {
 } from "../validations/user.validate.js";
 import { validateData } from "../validations/validates.js";
 import { signAccessToken, signRefreshToken } from "../utils/jwtoken.js";
+import { getAvatarFileName } from "../utils/getAvatarFileName.js";
 
 //! Sign up
 export const signUp = async (req, res) => {
@@ -190,7 +191,7 @@ export const getPagingUser = async (req, res) => {
 export const editUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    const { username, email, phone } = req.body;
+    const { username, email, phone, oldAvatar } = req.body;
     const avatar = req.file;
 
     const findUser = await User.findById(userId);
@@ -238,6 +239,9 @@ export const editUser = async (req, res) => {
       },
       { new: true }
     );
+    
+    const oldAvatarFileName = getAvatarFileName(oldAvatar)
+    cloudinary.uploader.destroy(oldAvatarFileName)
 
     return res.status(201).json({
       message: "Cập nhật thông tin người dùng thành công",

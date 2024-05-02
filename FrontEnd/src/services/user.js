@@ -15,12 +15,20 @@ export const signUp = ({ username, email, password, phone }) => {
   });
 };
 
+export const getUserData = () => {
+  return axiosInstanceAuth.get('/user/get-user')
+}
+
 export const getUserById = (userId) => {
   return axiosInstanceAuth.get(`/user/get-user-by-id/${userId}`);
 };
 
 export const editUser = (userId , formData ) => {
   return axiosInstanceAuth.put(`/user/edit/${userId}` , formData )
+}
+
+export const deleteUser = (userId) => {
+  return axiosInstanceAuth(`/user/delete/${userId}`)
 }
 
 export const refreshAccessToken = () => {
