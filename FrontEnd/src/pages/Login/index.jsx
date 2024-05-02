@@ -25,11 +25,18 @@ const Login = () => {
     try {
       setLoading(true);
       const result = await login(values);
+      const userRole = result.data.returnUser.role
+      console.log(userRole);
       dispatch(loginAction({user : result.data.returnUser}));
       saveUserToLocalStorage(result.data.returnUser);
       saveTokenToLocalStorage(result.data.accessToken);
       toast.success("Login successfully!");
-      navigate("/home")
+      if(userRole === 'admin'){
+        navigate('/dashboard')
+      }else{
+
+        navigate("/home")
+      }
     } catch (error) {
       toast.error(error.response.data?.message || error.messages);
       console.log(error);

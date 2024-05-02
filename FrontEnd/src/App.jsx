@@ -10,7 +10,8 @@ import Home from "./pages/Home/index.jsx";
 import SignUp from "./pages/SignUp/index.jsx";
 import Login from "./pages/Login";
 import CardDetails from "./pages/CardDetails";
-import Dashboard from "./pages/Dashboard/index.jsx";
+// import Dashboard from "./pages/Dashboard/index.jsx";
+import UserDashboard from "./pages/UserDashboard/index.jsx";
 function App() {
   const user = useSelector((state) => state.users.user);
 
@@ -20,16 +21,13 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/home/:id" element={<CardDetails />}/>
+        <Route path="/home/:id" element={<CardDetails />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-
-
-
-
-        <Route path='/authlayout' element={<AuthLayout />}>
-            <Route path='dashboard' element={<Dashboard />} />
-          </Route>
+        <Route path="/dashboard" element={<AuthLayout />}>
+          <Route path="" element={<UserDashboard />} />
+          {/* <Route path="" element={<Dashboard />} /> */}
+        </Route>
 
         {isObjectEmpty(user) ? (
           <Route path="" element={<NonAuthLayout />}>
@@ -40,8 +38,6 @@ function App() {
         ) : (
           <Route path="/" element={<AuthLayout />}>
             <Route path="/home" element={<Home />} />
-            
-            
           </Route>
         )}
       </Routes>

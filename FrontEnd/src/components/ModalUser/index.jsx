@@ -59,12 +59,13 @@ const ModalUser = ({ handleEdit }) => {
       }, 1000);
       const formData = new FormData()
       formData.append('avatar' , uploadFile)
+      formData.append('oldAvatar' , user.avatar)
       formData.append('username' , values.username)
       formData.append('email' , values.email)
       formData.append('phone' , values.phone)
 
       const result = await editUser(user.id, formData);
-      console.log(result);
+      
       const userUpdated = result.data.userUpdated;
       const payload = {
         id: userUpdated._id,

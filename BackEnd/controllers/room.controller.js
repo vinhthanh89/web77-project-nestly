@@ -46,6 +46,22 @@ export const getRooms = async (req , res) => {
     }
 }
 
+export const getDataRoom = async (req , res) => {
+    try {
+        const rooms = await Room.find()
+
+        return res.status(200).json({
+            message : "Lấy dữ liệu Room thành công",
+            rooms
+        })
+    } catch (error) {
+        console.log(error);
+        return req.status(500).json({
+            message : error
+        })
+    }
+}
+
 export const createRoom = async (req, res) => {
     const city = req.body.city
     const district = req.body.district
@@ -137,6 +153,23 @@ export const getCityOptions = async (req , res) => {
 
     } catch (error) {
         console.log(error);
+    }
+}
+
+export const deleteRoom = async (req , res) => {
+    try {
+        const roomId = req.params.id
+
+        await Room.findByIdAndDelete(roomId);
+
+        return res.status(201).json({
+            message : "Xóa dữ liệu thành công"
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message : error
+        })
     }
 }
 
