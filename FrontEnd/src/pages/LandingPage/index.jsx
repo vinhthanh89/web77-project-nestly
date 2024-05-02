@@ -4,7 +4,7 @@ import NavigationBar from "../../components/NavigationBar";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import "./index.css";
 const LandingPage = () => {
-  const nagative = useNavigate()
+  const nagative = useNavigate();
   return (
     <>
       <div className="landing-page">
@@ -12,7 +12,7 @@ const LandingPage = () => {
 
         <div className="top-container h-[100vh]">
           <NavigationBar />
-          <div className="quote mt-[8rem]">
+          <div className="quote mt-[10rem]">
             <ul className="flex-col justify-center text-center">
               <h1 className="neon_1 text-7xl text-white">
                 Affordable Diverse Convenient
@@ -24,9 +24,12 @@ const LandingPage = () => {
             </ul>
             {/* Button */}
             <div className="btn-holder w-full flex justify-center mt-8 opacity-95">
-              <button onClick={() => nagative('/home')} className="skeleton btn md:btn-md text-white hover:opacity-100">
-                <FaLongArrowAltRight/>
-                <Link >
+              <button
+                onClick={() => nagative("/home")}
+                className="skeleton btn md:btn-md text-white hover:opacity-100"
+              >
+                <FaLongArrowAltRight />
+                <Link>
                   <p className="pb-1">Try Nestly now!</p>
                 </Link>
               </button>
@@ -100,7 +103,7 @@ const LandingPage = () => {
               </p>
             </div>
           </div>
-        </div>        
+        </div>
         <Footer />
       </div>
     </>
