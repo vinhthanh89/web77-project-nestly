@@ -6,11 +6,13 @@ import {
   filterRoomsByType,
   getRoomById,
   getCityOptions,
+  createRoom,
 } from "../controllers/room.controller.js";
 import { authentication } from "../middlewares/authentication.js";
 
 const router = Router();
 
+router.post("/create-rooms", createRoom)
 router.get("/get-rooms", getRooms);
 router.get('/get-rooms/:id' , getRoomById)
 router.get('/get-city-options' , getCityOptions)
