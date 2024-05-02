@@ -10,6 +10,10 @@ export const getRoomData = async () => {
     return axiosInstance.get('/room/get-data-room')
 }
 
+export const getPagingRoomData = async ({pageSize , pageIndex}) => {
+    return axiosInstanceAuth.get(`/room/get-paging-rooms?pageSize=${pageSize}&pageIndex=${pageIndex}`)
+}
+
 export const fetchCityOptions = async () => {
     return axiosInstance.get('/room/get-city-options')
 }
