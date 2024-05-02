@@ -12,7 +12,7 @@ const Header = () => {
     <>
       <div className="header w-full flex justify-between bg-black p-[1rem] sticky top-0 z-[1]">
         {/* Logo */}
-        <div onClick={() => navigate('/home')} className="flex cursor-pointer">
+        <div onClick={() => navigate("/home")} className="flex cursor-pointer">
           <img src="/assets/Logo_white.png" alt="" className="w-[3rem]" />
           <h1 className="logo text-4xl text-white font-black ml-[0.5rem] mt-[1rem]">
             Nestly
