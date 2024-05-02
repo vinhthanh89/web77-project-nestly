@@ -1,6 +1,7 @@
 
 
 import Room from "../models/room.model.js"
+import toSlug from "../utils/toSlug.js";
 
 export const getRooms = async (req , res) => {
     try {
@@ -42,6 +43,39 @@ export const getRooms = async (req , res) => {
         return res.status(500).json({
             message : error
         })
+    }
+}
+
+export const createRoom = async (req, res) => {
+    const city = req.body.city
+    const district = req.body.district
+    const address = req.body.address
+    const area = req.body.area
+    const numberOfBedrooms = req.body.numberOfBedrooms
+    const rentPrice = req.body.rentPrice
+    const description =req.body.description
+    const type = req.body.type
+    const owner = req.body.owner
+    const bookingDate = req.body.bookingDate
+    const slug = toSlug(city, district, address)
+    try {
+        const result = await Room.create({
+            city:city,
+            district:district,
+            address:address,
+            area:area,
+            numberOfBedrooms:numberOfBedrooms,
+            rentPrice:rentPrice,
+            description : description,
+            type:type,
+            owner:owner,
+            bookingDate:bookingDate,
+            slug
+        })
+
+        return res.status(201).json({ room: result })
+    } catch (error) {
+        return res.status(500).json(error)
     }
 }
 
